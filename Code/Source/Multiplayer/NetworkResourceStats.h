@@ -45,6 +45,7 @@ namespace ResourceStats
 #if AZ_TRAIT_SERVER
         void HandleSendHealthDelta(AzNetworking::IConnection* invokingConnection, const AZ::s64& healthDelta) override;
         void HandleSendManaDelta(AzNetworking::IConnection* invokingConnection, const AZ::s64& manaDelta) override;
+        void HandleSendStaminaDelta(AzNetworking::IConnection* invokingConnection, const AZ::s64& staminaDelta) override;
 #endif
 
     private:

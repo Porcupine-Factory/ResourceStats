@@ -98,6 +98,13 @@ namespace ResourceStats
     {
         m_resourceStatsObject->SetManaDelta(manaDelta);
     }
+    void NetworkResourceStatsController::HandleSendStaminaDelta([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& staminaDelta)
+    {
+        // This method only does something when the First Person Controller is involved
+#ifdef FIRST_PERSON_CONTROLLER
+        m_resourceStatsObject->SetStaminaDelta(staminaDelta);
+#endif
+    }
 #endif
 
     // Event Notification methods for use in scripts

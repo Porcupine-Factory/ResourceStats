@@ -39,15 +39,25 @@ namespace ResourceStats
 
         // ResourceStatsComponentRequestBus
         AZ::u32 GetHealth() const override;
-        void SetHealth(const AZ::u32 new_health) override;
-        AZ::u32 GetMana() const override;
-        void SetMana(const AZ::u32 new_mana) override;
+        void SetHealth(const AZ::u32& new_health) override;
         AZ::u32 GetMaxHealth() const override;
-        void SetMaxHealth(const AZ::u32 new_maxHealth) override;
-        AZ::u32 GetMaxMana() const override;
-        void SetMaxMana(const AZ::u32 new_maxMana) override;
+        void SetMaxHealth(const AZ::u32& new_maxHealth) override;
         void SetHealthDelta(const AZ::s64& new_healthDelta) override;
+        AZ::u32 GetMana() const override;
+        void SetMana(const AZ::u32& new_mana) override;
+        AZ::u32 GetMaxMana() const override;
+        void SetMaxMana(const AZ::u32& new_maxMana) override;
         void SetManaDelta(const AZ::s64& new_manaDelta) override;
+#ifdef FIRST_PERSON_CONTROLLER
+        AZ::u32 GetStamina() const override;
+        void SetStamina(const AZ::u32& new_stamina) override;
+        AZ::u32 GetMaxStamina() const override;
+        void SetMaxStamina(const AZ::u32& new_maxStamina) override;
+        void SetStaminaDelta(const AZ::s64& new_staminaDelta) override;
+        AZ::u32 GetStaminaCooldownTime() const override;
+        void SetStaminaCooldownTime(const AZ::u32& new_staminaCooldownTime) override;
+        float GetStaminaPercentage() const override;
+#endif
         bool GetIsAutonomousClient() const override;
         bool GetIsServer() const override;
         bool GetIsHost() const override;
@@ -75,6 +85,11 @@ namespace ResourceStats
         void SetNetworkResourceStatsProperties() const;
         void GetNetworkResourceStatsProperties();
 
+#ifdef FIRST_PERSON_CONTROLLER
+        void InitStamina();
+        void UpdateStamina();
+#endif
+
         // NetworkResourceStats object
         NetworkResourceStats* m_networkResourceStatsObject = nullptr;
         NetworkResourceStatsController* m_networkResourceStatsControllerObject = nullptr;
@@ -85,9 +100,16 @@ namespace ResourceStats
 
         // Various resources / stats
         AZ::u32 m_health = 100;
-        AZ::u32 m_mana = 100;
         AZ::u32 m_maxHealth = 100;
+        AZ::u32 m_mana = 100;
         AZ::u32 m_maxMana = 100;
+#ifdef FIRST_PERSON_CONTROLLER
+        // Stamina units are in milliseconds of sprinting time
+        AZ::u32 m_stamina = 10000;
+        AZ::u32 m_maxStamina = 10000;
+        AZ::u32 m_staminaCooldownTime = 10000;
+        bool m_staminaInitialized = false;
+#endif
 
         // Networking related variables
         bool m_networkResourceStatsEnabled = false;

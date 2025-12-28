@@ -3,6 +3,10 @@
 #include <AzCore/Component/ComponentBus.h>
 #include <AzCore/RTTI/BehaviorContext.h>
 
+#if __has_include(<FirstPersonController/FirstPersonControllerComponentBus.h>)
+#include <FirstPersonController/FirstPersonControllerComponentBus.h>
+#endif
+
 namespace ResourceStats
 {
     class ResourceStatsComponentRequests : public AZ::ComponentBus
@@ -11,15 +15,25 @@ namespace ResourceStats
         ~ResourceStatsComponentRequests() override = default;
 
         virtual AZ::u32 GetHealth() const = 0;
-        virtual void SetHealth(const AZ::u32 new_health) = 0;
-        virtual AZ::u32 GetMana() const = 0;
-        virtual void SetMana(const AZ::u32 new_mana) = 0;
+        virtual void SetHealth(const AZ::u32&) = 0;
         virtual AZ::u32 GetMaxHealth() const = 0;
-        virtual void SetMaxHealth(const AZ::u32 new_maxHealth) = 0;
-        virtual AZ::u32 GetMaxMana() const = 0;
-        virtual void SetMaxMana(const AZ::u32 new_maxMana) = 0;
+        virtual void SetMaxHealth(const AZ::u32&) = 0;
         virtual void SetHealthDelta(const AZ::s64&) = 0;
+        virtual AZ::u32 GetMana() const = 0;
+        virtual void SetMana(const AZ::u32&) = 0;
+        virtual AZ::u32 GetMaxMana() const = 0;
+        virtual void SetMaxMana(const AZ::u32&) = 0;
         virtual void SetManaDelta(const AZ::s64&) = 0;
+#ifdef FIRST_PERSON_CONTROLLER
+        virtual AZ::u32 GetStamina() const = 0;
+        virtual void SetStamina(const AZ::u32&) = 0;
+        virtual AZ::u32 GetMaxStamina() const = 0;
+        virtual void SetMaxStamina(const AZ::u32&) = 0;
+        virtual void SetStaminaDelta(const AZ::s64&) = 0;
+        virtual AZ::u32 GetStaminaCooldownTime() const = 0;
+        virtual void SetStaminaCooldownTime(const AZ::u32& new_staminaCooldownTime) = 0;
+        virtual float GetStaminaPercentage() const = 0;
+#endif
         virtual bool GetIsAutonomousClient() const = 0;
         virtual bool GetIsServer() const = 0;
         virtual bool GetIsHost() const = 0;

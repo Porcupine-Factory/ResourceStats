@@ -34,6 +34,34 @@ ly_add_target(
 
 # The ${gem_name}.Private.Object target is an internal target
 # It should not be used outside of this Gems CMakeLists.txt
+if(TARGET Gem::FirstPersonController)
+ly_add_target(
+    NAME ${gem_name}.Private.Object STATIC
+    NAMESPACE Gem
+    FILES_CMAKE
+        resourcestats_private_files.cmake
+        resourcestats_autogen_files.cmake
+        ${pal_dir}/resourcestats_private_files.cmake
+    TARGET_PROPERTIES
+        O3DE_PRIVATE_TARGET TRUE
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Include
+            Source
+    BUILD_DEPENDENCIES
+        PUBLIC
+            AZ::AzCore
+            AZ::AzFramework
+            Gem::FirstPersonController
+            # For autogen components
+            Gem::MultiplayerPhysX5.Unified.Static
+    AUTOGEN_RULES
+        *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
+        *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
+        *.AutoComponent.xml,AutoComponentTypes_Header.jinja,$path/AutoComponentTypes.h
+        *.AutoComponent.xml,AutoComponentTypes_Source.jinja,$path/AutoComponentTypes.cpp
+)
+else()
 ly_add_target(
     NAME ${gem_name}.Private.Object STATIC
     NAMESPACE Gem
@@ -59,6 +87,7 @@ ly_add_target(
         *.AutoComponent.xml,AutoComponentTypes_Header.jinja,$path/AutoComponentTypes.h
         *.AutoComponent.xml,AutoComponentTypes_Source.jinja,$path/AutoComponentTypes.cpp
 )
+endif()
 
 # Here add ${gem_name} target, it depends on the Private Object library and Public API interface
 ly_add_target(
