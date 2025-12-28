@@ -1,0 +1,31 @@
+{
+    "gem_name": "ResourceStats",
+    "version": "1.0.0",
+    "display_name": "Resource Stats",
+    "license": "TBD",
+    "license_url": "https://gitlab.com/porcupine-factory/ResourceStats",
+    "origin": "Porcupine Factory",
+    "origin_url": "https://gitlab.com/porcupine-factory/ResourceStats",
+    "type": "Code",
+    "summary": "The Resource Stats Gem handles resources and statistics like health, stamina, defense, etc.",
+    "canonical_tags": [
+        "Gem"
+    ],
+    "user_tags": [
+        "ResourceStats"
+    ],
+    "platforms": [
+        ""
+    ],
+    "icon_path": "preview.png",
+    "requirements": "This gem requires the MultiplayerPhysX5 gem.",
+    "documentation_url": "https://gitlab.com/porcupine-factory/ResourceStats",
+    "dependencies": [
+        "MultiplayerPhysX5"
+    ],
+    "repo_uri": "",
+    "compatible_engines": [
+    ],
+    "engine_api_dependencies":[
+    ]
+}
