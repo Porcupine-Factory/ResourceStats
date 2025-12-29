@@ -194,23 +194,23 @@ namespace ResourceStats
 #ifdef FIRST_PERSON_CONTROLLER
     void ResourceStatsComponent::InitStamina()
     {
-        if (m_networkResourceStatsObject != nullptr)
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsObject != nullptr)
         {
             m_stamina = m_networkResourceStatsControllerObject->GetStamina();
             m_maxStamina = m_networkResourceStatsControllerObject->GetMaxStamina();
             m_staminaCooldownTime = m_networkResourceStatsControllerObject->GetStaminaCooldownTime();
-            FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
-                GetEntityId(),
-                &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintHeldTime,
-                (m_maxStamina - m_stamina) / 1000.f);
-            FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
-                GetEntityId(), &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintMaxTime, m_maxStamina / 1000.f);
-            FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
-                GetEntityId(),
-                &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintTotalCooldownTime,
-                m_staminaCooldownTime / 1000.f);
-            m_staminaInitialized = true;
         }
+        FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
+            GetEntityId(),
+            &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintHeldTime,
+            (m_maxStamina - m_stamina) / 1000.f);
+        FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
+            GetEntityId(), &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintMaxTime, m_maxStamina / 1000.f);
+        FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
+            GetEntityId(),
+            &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintTotalCooldownTime,
+            m_staminaCooldownTime / 1000.f);
+        m_staminaInitialized = true;
     }
 
     void ResourceStatsComponent::UpdateStamina()
@@ -279,6 +279,11 @@ namespace ResourceStats
     // Frame tick == 0, physics fixed timestep == 1 (not used in ResourceStats), network tick == 2
     void ResourceStatsComponent::ProcessInput(const float& deltaTime, const AZ::u8& tickTimestepNetwork)
     {
+        if (!m_staminaInitialized && !m_networkResourceStatsEnabled)
+        {
+            // Prioritize the initial stamina values in this component over the ones found in First Person Controller
+            InitStamina();
+        }
         if (tickTimestepNetwork == 2)
         {
 #ifdef FIRST_PERSON_CONTROLLER
