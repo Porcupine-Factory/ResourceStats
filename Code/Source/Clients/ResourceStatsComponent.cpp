@@ -302,7 +302,7 @@ namespace ResourceStats
         if (tickTimestepNetwork == 2)
         {
 #ifdef FIRST_PERSON_CONTROLLER
-            // Prioritize the initial stamina values in this component over the ones found in NetworkFPC
+            // Prioritize the initial stamina values in this component over the ones found in First Person Controller
             if (!m_staminaInitialized)
                 InitStamina();
 #endif

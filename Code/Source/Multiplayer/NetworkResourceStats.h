@@ -53,6 +53,9 @@ namespace ResourceStats
         void OnNetworkTickStart(const float& deltaTime, const bool& server, const AZ::EntityId& entity);
         void OnNetworkTickFinish(const float& deltaTime, const bool& server, const AZ::EntityId& entity);
 
+        // Used to initialize Network Properties from initial values in the Resource Stats component
+        bool m_init = true;
+
         // ResourceStatsComponent objects
         ResourceStatsComponent* m_resourceStatsObject = nullptr;
 

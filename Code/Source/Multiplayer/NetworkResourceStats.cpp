@@ -67,6 +67,18 @@ namespace ResourceStats
         if (m_disabled)
             return;
 
+        if (m_init)
+        {
+            m_init = false;
+            SetHealth(m_resourceStatsObject->m_health);
+            SetMaxHealth(m_resourceStatsObject->m_maxHealth);
+            SetMana(m_resourceStatsObject->m_mana);
+            SetMaxMana(m_resourceStatsObject->m_maxMana);
+            SetStamina(m_resourceStatsObject->m_stamina);
+            SetMaxStamina(m_resourceStatsObject->m_maxStamina);
+            SetStaminaCooldownTime(m_resourceStatsObject->m_staminaCooldownTime);
+        }
+
         // Disconnect from various buses when the NetworkResourceStatsController is not autonomous, and only do this once
         if (m_autonomousNotDetermined)
         {
@@ -81,6 +93,8 @@ namespace ResourceStats
             deltaTime,
             m_resourceStatsObject->m_isServer,
             GetEntityId());
+
+        // Do work every network tick here
 
         NetworkResourceStatsControllerNotificationBus::Broadcast(
             &NetworkResourceStatsControllerNotificationBus::Events::OnNetworkTickFinish,
