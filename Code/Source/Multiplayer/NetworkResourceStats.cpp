@@ -104,15 +104,18 @@ namespace ResourceStats
     }
 
 #if AZ_TRAIT_SERVER
-    void NetworkResourceStatsController::HandleSendHealthDelta([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& healthDelta)
+    void NetworkResourceStatsController::HandleSendHealthDelta(
+        [[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& healthDelta)
     {
         m_resourceStatsObject->SetHealthDelta(healthDelta);
     }
-    void NetworkResourceStatsController::HandleSendManaDelta([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& manaDelta)
+    void NetworkResourceStatsController::HandleSendManaDelta(
+        [[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& manaDelta)
     {
         m_resourceStatsObject->SetManaDelta(manaDelta);
     }
-    void NetworkResourceStatsController::HandleSendStaminaDelta([[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& staminaDelta)
+    void NetworkResourceStatsController::HandleSendStaminaDelta(
+        [[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& staminaDelta)
     {
         // This method only does something when the First Person Controller is involved
 #ifdef FIRST_PERSON_CONTROLLER
@@ -147,4 +150,4 @@ namespace ResourceStats
         m_disabled = !new_enabled;
         m_resourceStatsObject->m_networkResourceStatsEnabled = new_enabled;
     }
-}
+} // namespace ResourceStats

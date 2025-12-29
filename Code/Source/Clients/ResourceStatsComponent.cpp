@@ -37,8 +37,7 @@ namespace ResourceStats
             if (AZ::EditContext* ec = sc->GetEditContext())
             {
                 using namespace AZ::Edit::Attributes;
-                ec->Class<ResourceStatsComponent>(
-                      "Resource Stats", "Keeps track of resources and stats for any entity with this component")
+                ec->Class<ResourceStatsComponent>("Resource Stats", "Keeps track of resources and stats for any entity with this component")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
                     ->Attribute(Category, "Resource Stats")
@@ -46,26 +45,10 @@ namespace ResourceStats
 
                     ->ClassElement(AZ::Edit::ClassElements::Group, "Resources and Statistics")
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, false)
-                    ->DataElement(
-                        nullptr,
-                        &ResourceStatsComponent::m_health,
-                        "Health",
-                        "Initial health")
-                    ->DataElement(
-                        nullptr,
-                        &ResourceStatsComponent::m_maxHealth,
-                        "Max Health",
-                        "Maximum health")
-                    ->DataElement(
-                        nullptr,
-                        &ResourceStatsComponent::m_mana,
-                        "Mana",
-                        "Initial mana")
-                    ->DataElement(
-                        nullptr,
-                        &ResourceStatsComponent::m_maxMana,
-                        "Max Mana",
-                        "Maximum mana")
+                    ->DataElement(nullptr, &ResourceStatsComponent::m_health, "Health", "Initial health")
+                    ->DataElement(nullptr, &ResourceStatsComponent::m_maxHealth, "Max Health", "Maximum health")
+                    ->DataElement(nullptr, &ResourceStatsComponent::m_mana, "Mana", "Initial mana")
+                    ->DataElement(nullptr, &ResourceStatsComponent::m_maxMana, "Max Mana", "Maximum mana")
 #ifdef FIRST_PERSON_CONTROLLER
                     ->DataElement(
                         nullptr,
@@ -84,7 +67,7 @@ namespace ResourceStats
                         "Stamina cooldown time, The time in milliseconds required to wait before sprinting or using Stamina "
                         "once Max Stamina has been reached or Stamina hits 0. Also Determines the regeneration rate.")
 #endif
-                ;
+                    ;
             }
         }
 
@@ -152,8 +135,10 @@ namespace ResourceStats
         // Determine if the NetworkResourceStats is enabled
         if (m_networkResourceStatsObject != nullptr)
         {
-            m_networkResourceStatsControllerObject = static_cast<NetworkResourceStatsController*>(m_networkResourceStatsObject->GetController());
-            NetworkResourceStatsControllerRequestBus::BroadcastResult(m_networkResourceStatsEnabled, &NetworkResourceStatsControllerRequestBus::Events::GetEnabled);
+            m_networkResourceStatsControllerObject =
+                static_cast<NetworkResourceStatsController*>(m_networkResourceStatsObject->GetController());
+            NetworkResourceStatsControllerRequestBus::BroadcastResult(
+                m_networkResourceStatsEnabled, &NetworkResourceStatsControllerRequestBus::Events::GetEnabled);
         }
     }
 
@@ -200,7 +185,8 @@ namespace ResourceStats
                 &ResourceStatsComponentNotificationBus::Events::OnNetworkResourceStatsTickStart,
                 (deltaTime + m_prevNetworkResourceStatsDeltaTime) / 2.f);
             if (!m_networkResourceStatsEnabled)
-                NetworkResourceStatsControllerRequestBus::BroadcastResult(m_networkResourceStatsEnabled, &NetworkResourceStatsControllerRequestBus::Events::GetEnabled);
+                NetworkResourceStatsControllerRequestBus::BroadcastResult(
+                    m_networkResourceStatsEnabled, &NetworkResourceStatsControllerRequestBus::Events::GetEnabled);
             ProcessInput(((deltaTime + m_prevNetworkResourceStatsDeltaTime) / 2.f), 2);
         }
     }
@@ -218,9 +204,7 @@ namespace ResourceStats
                 &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintHeldTime,
                 (m_maxStamina - m_stamina) / 1000.f);
             FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
-                GetEntityId(),
-                &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintMaxTime,
-                m_maxStamina / 1000.f);
+                GetEntityId(), &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintMaxTime, m_maxStamina / 1000.f);
             FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
                 GetEntityId(),
                 &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintTotalCooldownTime,
@@ -235,15 +219,11 @@ namespace ResourceStats
         {
             float sprintMaxTime;
             FirstPersonController::FirstPersonControllerComponentRequestBus::EventResult(
-                sprintMaxTime,
-                GetEntityId(),
-                &FirstPersonController::FirstPersonControllerComponentRequests::GetSprintMaxTime);
+                sprintMaxTime, GetEntityId(), &FirstPersonController::FirstPersonControllerComponentRequests::GetSprintMaxTime);
             m_maxStamina = static_cast<AZ::u32>(sprintMaxTime * 1000.f);
             float sprintHeldTime;
             FirstPersonController::FirstPersonControllerComponentRequestBus::EventResult(
-                sprintHeldTime,
-                GetEntityId(),
-                &FirstPersonController::FirstPersonControllerComponentRequests::GetSprintHeldTime);
+                sprintHeldTime, GetEntityId(), &FirstPersonController::FirstPersonControllerComponentRequests::GetSprintHeldTime);
             m_stamina = (m_maxStamina - static_cast<AZ::u32>(sprintHeldTime * 1000.f));
             float sprintCooldownTime;
             FirstPersonController::FirstPersonControllerComponentRequestBus::EventResult(
@@ -427,9 +407,7 @@ namespace ResourceStats
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetMaxStamina(m_maxStamina);
         FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
-            GetEntityId(),
-            &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintMaxTime,
-            m_maxStamina / 1000.f);
+            GetEntityId(), &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintMaxTime, m_maxStamina / 1000.f);
     }
     void ResourceStatsComponent::SetStaminaDelta(const AZ::s64& new_staminaDelta)
     {
@@ -466,9 +444,7 @@ namespace ResourceStats
         // The stamina percentage is simply taken from the First Person Controller
         float staminaPercentage;
         FirstPersonController::FirstPersonControllerComponentRequestBus::EventResult(
-            staminaPercentage,
-            GetEntityId(),
-            &FirstPersonController::FirstPersonControllerComponentRequests::GetStaminaPercentage);
+            staminaPercentage, GetEntityId(), &FirstPersonController::FirstPersonControllerComponentRequests::GetStaminaPercentage);
         return staminaPercentage;
     }
 #endif
@@ -491,7 +467,8 @@ namespace ResourceStats
     void ResourceStatsComponent::SetLocallyEnableNetworkResourceStats(const bool& new_networkResourceStatsEnabled)
     {
         m_networkResourceStatsEnabled = new_networkResourceStatsEnabled;
-        NetworkResourceStatsControllerRequestBus::Event(GetEntityId(), &NetworkResourceStatsControllerRequestBus::Events::SetEnabled, m_networkResourceStatsEnabled);
+        NetworkResourceStatsControllerRequestBus::Event(
+            GetEntityId(), &NetworkResourceStatsControllerRequestBus::Events::SetEnabled, m_networkResourceStatsEnabled);
     }
     void ResourceStatsComponent::IsAutonomousSoConnect()
     {

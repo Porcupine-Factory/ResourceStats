@@ -1,6 +1,6 @@
 #pragma once
-#include <ResourceStats/ResourceStatsComponentBus.h>
 #include <ResourceStats/NetworkResourceStatsControllerBus.h>
+#include <ResourceStats/ResourceStatsComponentBus.h>
 
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/EntityBus.h>

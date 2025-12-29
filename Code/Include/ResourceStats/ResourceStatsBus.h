@@ -16,8 +16,7 @@ namespace ResourceStats
         // Put your public methods here
     };
 
-    class ResourceStatsBusTraits
-        : public AZ::EBusTraits
+    class ResourceStatsBusTraits : public AZ::EBusTraits
     {
     public:
         //////////////////////////////////////////////////////////////////////////

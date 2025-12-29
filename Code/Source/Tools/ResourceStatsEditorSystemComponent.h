@@ -13,6 +13,7 @@ namespace ResourceStats
         , protected AzToolsFramework::EditorEvents::Bus::Handler
     {
         using BaseSystemComponent = ResourceStatsSystemComponent;
+
     public:
         AZ_COMPONENT_DECL(ResourceStatsEditorSystemComponent);
 

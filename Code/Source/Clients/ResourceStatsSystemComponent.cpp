@@ -8,21 +8,17 @@
 
 namespace ResourceStats
 {
-    AZ_COMPONENT_IMPL(ResourceStatsSystemComponent, "ResourceStatsSystemComponent",
-        ResourceStatsSystemComponentTypeId);
+    AZ_COMPONENT_IMPL(ResourceStatsSystemComponent, "ResourceStatsSystemComponent", ResourceStatsSystemComponentTypeId);
 
     void ResourceStatsSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serializeContext->Class<ResourceStatsSystemComponent, AZ::Component>()
-                ->Version(0)
-                ;
+            serializeContext->Class<ResourceStatsSystemComponent, AZ::Component>()->Version(0);
 
             if (AZ::EditContext* ec = serializeContext->GetEditContext())
             {
-                ec->Class<ResourceStatsSystemComponent>(
-                      "ResourceStats", "[Description of functionality provided by this System Component]")
+                ec->Class<ResourceStatsSystemComponent>("ResourceStats", "[Description of functionality provided by this System Component]")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true);

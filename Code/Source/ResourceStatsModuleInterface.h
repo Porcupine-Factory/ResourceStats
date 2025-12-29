@@ -8,8 +8,7 @@
 
 namespace ResourceStats
 {
-    class ResourceStatsModuleInterface
-        : public AZ::Module
+    class ResourceStatsModuleInterface : public AZ::Module
     {
     public:
         AZ_TYPE_INFO_WITH_NAME_DECL(ResourceStatsModuleInterface)
@@ -23,4 +22,4 @@ namespace ResourceStats
          */
         AZ::ComponentTypeList GetRequiredSystemComponents() const override;
     };
-}// namespace ResourceStats
+} // namespace ResourceStats

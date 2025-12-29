@@ -1,20 +1,22 @@
 
-#include <AzCore/Serialization/SerializeContext.h>
 #include "ResourceStatsEditorSystemComponent.h"
+#include <AzCore/Serialization/SerializeContext.h>
 
 #include <ResourceStats/ResourceStatsTypeIds.h>
 
 namespace ResourceStats
 {
-    AZ_COMPONENT_IMPL(ResourceStatsEditorSystemComponent, "ResourceStatsEditorSystemComponent",
-        ResourceStatsEditorSystemComponentTypeId, BaseSystemComponent);
+    AZ_COMPONENT_IMPL(
+        ResourceStatsEditorSystemComponent,
+        "ResourceStatsEditorSystemComponent",
+        ResourceStatsEditorSystemComponentTypeId,
+        BaseSystemComponent);
 
     void ResourceStatsEditorSystemComponent::Reflect(AZ::ReflectContext* context)
     {
         if (auto serializeContext = azrtti_cast<AZ::SerializeContext*>(context))
         {
-            serializeContext->Class<ResourceStatsEditorSystemComponent, ResourceStatsSystemComponent>()
-                ->Version(0);
+            serializeContext->Class<ResourceStatsEditorSystemComponent, ResourceStatsSystemComponent>()->Version(0);
         }
     }
 
