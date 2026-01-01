@@ -43,6 +43,20 @@
                      IsPredictable="true" ExposeToEditor="false"
                      ExposeToScript="true" GenerateEventBindings="true"
                      Description="Maximum mana"/>
+    <NetworkProperty Type="AZ::u32" Name="Strength"
+                     Init="100" ReplicateFrom="Authority"
+                     ReplicateTo="Client" Container="Object"
+                     IsPublic="true" IsRewindable="true"
+                     IsPredictable="true" ExposeToEditor="false"
+                     ExposeToScript="true" GenerateEventBindings="true"
+                     Description="The amount of strength"/>
+    <NetworkProperty Type="AZ::u32" Name="MaxStrength"
+                     Init="100" ReplicateFrom="Authority"
+                     ReplicateTo="Client" Container="Object"
+                     IsPublic="true" IsRewindable="true"
+                     IsPredictable="true" ExposeToEditor="false"
+                     ExposeToScript="true" GenerateEventBindings="true"
+                     Description="Maximum strength"/>
     <NetworkProperty Type="AZ::u32" Name="Stamina"
                      Init="10000" ReplicateFrom="Authority"
                      ReplicateTo="Client" Container="Object"
@@ -71,6 +85,10 @@
 
     <RemoteProcedure Name="SendManaDelta" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Mana changed RPC">
         <Param Type="AZ::s64" Name="deltaMana"/>
+    </RemoteProcedure>
+
+    <RemoteProcedure Name="SendStrengthDelta" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Strength changed RPC">
+        <Param Type="AZ::s64" Name="deltaStrength"/>
     </RemoteProcedure>
 
     <RemoteProcedure Name="SendStaminaDelta" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Stamina changed RPC, only used with the First Person Controller">

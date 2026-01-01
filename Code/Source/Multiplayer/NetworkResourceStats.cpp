@@ -74,6 +74,8 @@ namespace ResourceStats
             SetMaxHealth(m_resourceStatsObject->m_maxHealth);
             SetMana(m_resourceStatsObject->m_mana);
             SetMaxMana(m_resourceStatsObject->m_maxMana);
+            SetStrength(m_resourceStatsObject->m_strength);
+            SetMaxStrength(m_resourceStatsObject->m_maxStrength);
             SetStamina(m_resourceStatsObject->m_stamina);
             SetMaxStamina(m_resourceStatsObject->m_maxStamina);
             SetStaminaCooldownTime(m_resourceStatsObject->m_staminaCooldownTime);
@@ -113,6 +115,11 @@ namespace ResourceStats
         [[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& manaDelta)
     {
         m_resourceStatsObject->SetManaDelta(manaDelta);
+    }
+    void NetworkResourceStatsController::HandleSendStrengthDelta(
+        [[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& strengthDelta)
+    {
+        m_resourceStatsObject->SetStrengthDelta(strengthDelta);
     }
     void NetworkResourceStatsController::HandleSendStaminaDelta(
         [[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& staminaDelta)
