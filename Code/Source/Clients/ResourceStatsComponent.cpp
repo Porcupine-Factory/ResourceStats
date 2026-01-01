@@ -142,7 +142,7 @@ namespace ResourceStats
         }
     }
 
-    void ResourceStatsComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)
+    void ResourceStatsComponent::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
     {
     }
 
@@ -277,7 +277,7 @@ namespace ResourceStats
     }
 
     // Frame tick == 0, physics fixed timestep == 1 (not used in ResourceStats), network tick == 2
-    void ResourceStatsComponent::ProcessInput(const float& deltaTime, const AZ::u8& tickTimestepNetwork)
+    void ResourceStatsComponent::ProcessInput([[maybe_unused]] const float& deltaTime, const AZ::u8& tickTimestepNetwork)
     {
         if (!m_staminaInitialized && !m_networkResourceStatsEnabled)
         {

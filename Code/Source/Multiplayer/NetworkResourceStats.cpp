@@ -44,7 +44,7 @@ namespace ResourceStats
         required.push_back(AZ_CRC_CE("ResourceStatsService"));
     }
 
-    void NetworkResourceStatsController::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent)
+    void NetworkResourceStatsController::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
     {
     }
 
