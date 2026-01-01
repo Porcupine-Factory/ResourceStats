@@ -354,8 +354,7 @@ namespace ResourceStats
     {
         const AZ::s64 currentHealth = static_cast<AZ::s64>(m_health);
         const AZ::s64 maxHealth = static_cast<AZ::s64>(m_maxHealth);
-        AZ::s64 newHealth = currentHealth + new_healthDelta;
-        newHealth = AZStd::clamp(newHealth, 0LL, maxHealth);
+        const AZ::s64 newHealth = AZStd::clamp(currentHealth + new_healthDelta, 0LL, maxHealth);
         m_health = static_cast<AZ::u32>(newHealth);
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetHealth(m_health);
@@ -390,8 +389,7 @@ namespace ResourceStats
     {
         const AZ::s64 currentMana = static_cast<AZ::s64>(m_mana);
         const AZ::s64 maxMana = static_cast<AZ::s64>(m_maxMana);
-        AZ::s64 newMana = currentMana + new_manaDelta;
-        newMana = AZStd::clamp(newMana, 0LL, maxMana);
+        const AZ::s64 newMana = AZStd::clamp(currentMana + new_manaDelta, 0LL, maxMana);
         m_mana = static_cast<AZ::u32>(newMana);
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetMana(m_mana);
@@ -426,8 +424,7 @@ namespace ResourceStats
     {
         const AZ::s64 currentStrength = static_cast<AZ::s64>(m_strength);
         const AZ::s64 maxStrength = static_cast<AZ::s64>(m_maxStrength);
-        AZ::s64 newStrength = currentStrength + new_strengthDelta;
-        newStrength = AZStd::clamp(newStrength, 0LL, maxStrength);
+        const AZ::s64 newStrength = AZStd::clamp(currentStrength + new_strengthDelta, 0LL, maxStrength);
         m_strength = static_cast<AZ::u32>(newStrength);
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetStrength(m_strength);
