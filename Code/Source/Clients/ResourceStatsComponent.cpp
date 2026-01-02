@@ -268,6 +268,7 @@ namespace ResourceStats
 #ifdef FIRST_PERSON_CONTROLLER
             m_stamina = m_networkResourceStatsControllerObject->GetStamina();
             m_maxStamina = m_networkResourceStatsControllerObject->GetMaxStamina();
+            m_staminaCooldownTime = m_networkResourceStatsControllerObject->GetStaminaCooldownTime();
 #endif
         }
     }
