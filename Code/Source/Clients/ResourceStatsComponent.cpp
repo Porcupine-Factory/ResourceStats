@@ -54,8 +54,8 @@ namespace ResourceStats
                     ->DataElement(nullptr, &ResourceStatsComponent::m_maxHealth, "Max Health", "Maximum health")
                     ->DataElement(nullptr, &ResourceStatsComponent::m_mana, "Mana", "Initial mana")
                     ->DataElement(nullptr, &ResourceStatsComponent::m_maxMana, "Max Mana", "Maximum mana")
-                    ->DataElement(nullptr, &ResourceStatsComponent::m_mana, "Strength", "Initial strength")
-                    ->DataElement(nullptr, &ResourceStatsComponent::m_maxMana, "Max Strength", "Maximum strength")
+                    ->DataElement(nullptr, &ResourceStatsComponent::m_strength, "Strength", "Initial strength")
+                    ->DataElement(nullptr, &ResourceStatsComponent::m_maxStrength, "Max Strength", "Maximum strength")
 #ifdef FIRST_PERSON_CONTROLLER
                     ->DataElement(
                         nullptr,
@@ -266,6 +266,8 @@ namespace ResourceStats
             m_maxHealth = m_networkResourceStatsControllerObject->GetMaxHealth();
             m_mana = m_networkResourceStatsControllerObject->GetMana();
             m_maxMana = m_networkResourceStatsControllerObject->GetMaxMana();
+            m_strength = m_networkResourceStatsControllerObject->GetStrength();
+            m_maxStrength = m_networkResourceStatsControllerObject->GetMaxStrength();
 #ifdef FIRST_PERSON_CONTROLLER
             m_stamina = m_networkResourceStatsControllerObject->GetStamina();
             m_maxStamina = m_networkResourceStatsControllerObject->GetMaxStamina();
