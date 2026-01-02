@@ -1,3 +1,4 @@
+#include <AzCore/std/limits.h>
 #include <Clients/ResourceStatsComponent.h>
 #include <Multiplayer/NetworkResourceStats.h>
 
@@ -353,10 +354,15 @@ namespace ResourceStats
     }
     void ResourceStatsComponent::SetHealthDelta(const AZ::s64& new_healthDelta)
     {
-        const AZ::s64 currentHealth = static_cast<AZ::s64>(m_health);
-        const AZ::s64 maxHealth = static_cast<AZ::s64>(m_maxHealth);
-        const AZ::s64 newHealth = AZStd::clamp(currentHealth + new_healthDelta, 0LL, maxHealth);
-        m_health = static_cast<AZ::u32>(newHealth);
+        if (new_healthDelta > 0 && new_healthDelta > AZStd::numeric_limits<AZ::u32>::max() - m_health)
+            m_health = AZStd::numeric_limits<AZ::u32>::max();
+        else
+        {
+            const AZ::s64 currentHealth = static_cast<AZ::s64>(m_health);
+            const AZ::s64 maxHealth = static_cast<AZ::s64>(m_maxHealth);
+            const AZ::s64 newHealth = AZStd::clamp(currentHealth + new_healthDelta, 0LL, maxHealth);
+            m_health = static_cast<AZ::u32>(newHealth);
+        }
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetHealth(m_health);
     }
@@ -388,10 +394,15 @@ namespace ResourceStats
     }
     void ResourceStatsComponent::SetManaDelta(const AZ::s64& new_manaDelta)
     {
-        const AZ::s64 currentMana = static_cast<AZ::s64>(m_mana);
-        const AZ::s64 maxMana = static_cast<AZ::s64>(m_maxMana);
-        const AZ::s64 newMana = AZStd::clamp(currentMana + new_manaDelta, 0LL, maxMana);
-        m_mana = static_cast<AZ::u32>(newMana);
+        if (new_manaDelta > 0 && new_manaDelta > AZStd::numeric_limits<AZ::u32>::max() - m_mana)
+            m_mana = AZStd::numeric_limits<AZ::u32>::max();
+        else
+        {
+            const AZ::s64 currentMana = static_cast<AZ::s64>(m_mana);
+            const AZ::s64 maxMana = static_cast<AZ::s64>(m_maxMana);
+            const AZ::s64 newMana = AZStd::clamp(currentMana + new_manaDelta, 0LL, maxMana);
+            m_mana = static_cast<AZ::u32>(newMana);
+        }
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetMana(m_mana);
     }
@@ -423,10 +434,15 @@ namespace ResourceStats
     }
     void ResourceStatsComponent::SetStrengthDelta(const AZ::s64& new_strengthDelta)
     {
-        const AZ::s64 currentStrength = static_cast<AZ::s64>(m_strength);
-        const AZ::s64 maxStrength = static_cast<AZ::s64>(m_maxStrength);
-        const AZ::s64 newStrength = AZStd::clamp(currentStrength + new_strengthDelta, 0LL, maxStrength);
-        m_strength = static_cast<AZ::u32>(newStrength);
+        if (new_strengthDelta > 0 && new_strengthDelta > AZStd::numeric_limits<AZ::u32>::max() - m_strength)
+            m_strength = AZStd::numeric_limits<AZ::u32>::max();
+        else
+        {
+            const AZ::s64 currentStrength = static_cast<AZ::s64>(m_strength);
+            const AZ::s64 maxStrength = static_cast<AZ::s64>(m_maxStrength);
+            const AZ::s64 newStrength = AZStd::clamp(currentStrength + new_strengthDelta, 0LL, maxStrength);
+            m_strength = static_cast<AZ::u32>(newStrength);
+        }
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetStrength(m_strength);
     }
@@ -465,11 +481,15 @@ namespace ResourceStats
     }
     void ResourceStatsComponent::SetStaminaDelta(const AZ::s64& new_staminaDelta)
     {
-        const AZ::s64 currentStamina = static_cast<AZ::s64>(m_stamina);
-        const AZ::s64 maxStamina = static_cast<AZ::s64>(m_maxStamina);
-        AZ::s64 newStamina = currentStamina + new_staminaDelta;
-        newStamina = AZStd::clamp(newStamina, 0LL, maxStamina);
-        m_stamina = static_cast<AZ::u32>(newStamina);
+        if (new_staminaDelta > 0 && new_staminaDelta > AZStd::numeric_limits<AZ::u32>::max() - m_stamina)
+            m_stamina = AZStd::numeric_limits<AZ::u32>::max();
+        else
+        {
+            const AZ::s64 currentStamina = static_cast<AZ::s64>(m_stamina);
+            const AZ::s64 maxStamina = static_cast<AZ::s64>(m_maxStamina);
+            const AZ::s64 newStamina = AZStd::clamp(currentStamina + new_staminaDelta, 0LL, maxStamina);
+            m_stamina = static_cast<AZ::u32>(newStamina);
+        }
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetStamina(m_stamina);
         FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
