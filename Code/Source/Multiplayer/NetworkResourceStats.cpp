@@ -76,9 +76,11 @@ namespace ResourceStats
             SetMaxMana(m_resourceStatsObject->m_maxMana);
             SetStrength(m_resourceStatsObject->m_strength);
             SetMaxStrength(m_resourceStatsObject->m_maxStrength);
+#ifdef FIRST_PERSON_CONTROLLER
             SetStamina(m_resourceStatsObject->m_stamina);
             SetMaxStamina(m_resourceStatsObject->m_maxStamina);
             SetStaminaCooldownTime(m_resourceStatsObject->m_staminaCooldownTime);
+#endif
         }
 
         // Disconnect from various buses when the NetworkResourceStatsController is not autonomous, and only do this once
