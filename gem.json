@@ -21,7 +21,6 @@
     "requirements": "This gem requires the MultiplayerPhysX5 gem.",
     "documentation_url": "https://gitlab.com/porcupine-factory/ResourceStats",
     "dependencies": [
-        "AMultiplayerPhysX5"
     ],
     "repo_uri": "",
     "compatible_engines": [

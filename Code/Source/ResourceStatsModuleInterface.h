@@ -4,7 +4,9 @@
 #include <AzCore/RTTI/RTTIMacros.h>
 #include <AzCore/RTTI/TypeInfoSimple.h>
 #include <Clients/ResourceStatsComponent.h>
+#if __has_include(<Source/AutoGen/AutoComponentTypes.h>)
 #include <Source/AutoGen/AutoComponentTypes.h>
+#endif
 
 namespace ResourceStats
 {

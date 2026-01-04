@@ -1,5 +1,7 @@
 #pragma once
+#ifdef NETWORK_RESOURCE_STATS
 #include <ResourceStats/NetworkResourceStatsControllerBus.h>
+#endif
 #include <ResourceStats/ResourceStatsComponentBus.h>
 
 #include <AzCore/Component/Component.h>
@@ -14,7 +16,9 @@ namespace ResourceStats
     class ResourceStatsComponent
         : public AZ::Component
         , public AZ::TickBus::Handler
+#ifdef NETWORK_RESOURCE_STATS
         , public NetworkResourceStatsControllerNotificationBus::Handler
+#endif
         , public ResourceStatsComponentRequestBus::Handler
         , public AZ::EntityBus::Handler
     {
@@ -96,8 +100,13 @@ namespace ResourceStats
 #endif
 
         // NetworkResourceStats object
+#ifdef NETWORK_RESOURCE_STATS
         NetworkResourceStats* m_networkResourceStatsObject = nullptr;
         NetworkResourceStatsController* m_networkResourceStatsControllerObject = nullptr;
+#else
+        bool* m_networkResourceStatsObject = nullptr;
+        bool* m_networkResourceStatsControllerObject = nullptr;
+#endif
 
         // Stores the previous NetworkResourceStats tick deltaTime
         float m_prevDeltaTime = 1.f / 60.f;

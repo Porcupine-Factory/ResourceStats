@@ -34,7 +34,7 @@ ly_add_target(
 
 # The ${gem_name}.Private.Object target is an internal target
 # It should not be used outside of this Gems CMakeLists.txt
-if(TARGET Gem::FirstPersonController)
+if(TARGET Gem::FirstPersonController AND TARGET Gem::AMultiplayerPhysX5.Unified.Static)
 ly_add_target(
     NAME ${gem_name}.Private.Object STATIC
     NAMESPACE Gem
@@ -61,7 +61,7 @@ ly_add_target(
         *.AutoComponent.xml,AutoComponentTypes_Header.jinja,$path/AutoComponentTypes.h
         *.AutoComponent.xml,AutoComponentTypes_Source.jinja,$path/AutoComponentTypes.cpp
 )
-else()
+elseif(TARGET Gem::AMultiplayerPhysX5.Unified.Static)
 ly_add_target(
     NAME ${gem_name}.Private.Object STATIC
     NAMESPACE Gem
@@ -86,6 +86,43 @@ ly_add_target(
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
         *.AutoComponent.xml,AutoComponentTypes_Header.jinja,$path/AutoComponentTypes.h
         *.AutoComponent.xml,AutoComponentTypes_Source.jinja,$path/AutoComponentTypes.cpp
+)
+elseif(TARGET Gem::FirstPersonController)
+ly_add_target(
+    NAME ${gem_name}.Private.Object STATIC
+    NAMESPACE Gem
+    FILES_CMAKE
+        resourcestats_private_files.cmake
+        ${pal_dir}/resourcestats_private_files.cmake
+    TARGET_PROPERTIES
+        O3DE_PRIVATE_TARGET TRUE
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Include
+            Source
+    BUILD_DEPENDENCIES
+        PUBLIC
+            AZ::AzCore
+            AZ::AzFramework
+            Gem::FirstPersonController
+)
+else()
+ly_add_target(
+    NAME ${gem_name}.Private.Object STATIC
+    NAMESPACE Gem
+    FILES_CMAKE
+        resourcestats_private_files.cmake
+        ${pal_dir}/resourcestats_private_files.cmake
+    TARGET_PROPERTIES
+        O3DE_PRIVATE_TARGET TRUE
+    INCLUDE_DIRECTORIES
+        PRIVATE
+            Include
+            Source
+    BUILD_DEPENDENCIES
+        PUBLIC
+            AZ::AzCore
+            AZ::AzFramework
 )
 endif()
 

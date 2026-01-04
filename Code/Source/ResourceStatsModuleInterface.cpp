@@ -21,8 +21,10 @@ namespace ResourceStats
         m_descriptors.insert(
             m_descriptors.end(), { ResourceStatsSystemComponent::CreateDescriptor(), ResourceStatsComponent::CreateDescriptor() });
 
+#ifdef NETWORK_RESOURCE_STATS
         //< Register multiplayer components
         CreateComponentDescriptors(m_descriptors);
+#endif
     }
 
     AZ::ComponentTypeList ResourceStatsModuleInterface::GetRequiredSystemComponents() const

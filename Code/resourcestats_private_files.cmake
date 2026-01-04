@@ -1,4 +1,5 @@
 
+if(TARGET Gem::AMultiplayerPhysX5.Unified.Static)
 set(FILES
     Source/ResourceStatsModuleInterface.cpp
     Source/ResourceStatsModuleInterface.h
@@ -11,3 +12,13 @@ set(FILES
 
     Source/AutoGen/NetworkResourceStats.AutoComponent.xml
 )
+else()
+set(FILES
+    Source/ResourceStatsModuleInterface.cpp
+    Source/ResourceStatsModuleInterface.h
+    Source/Clients/ResourceStatsSystemComponent.cpp
+    Source/Clients/ResourceStatsSystemComponent.h
+    Source/Clients/ResourceStatsComponent.cpp
+    Source/Clients/ResourceStatsComponent.h
+)
+endif()
