@@ -153,7 +153,7 @@ namespace ResourceStats
         if (m_networkResourceStatsObject != nullptr)
         {
             m_networkResourceStatsControllerObject =
-                static_cast<NetworkResourceStatsController*>(m_networkResourceStatsObject->GetController());
+                aznumeric_cast<NetworkResourceStatsController*>(m_networkResourceStatsObject->GetController());
             NetworkResourceStatsControllerRequestBus::BroadcastResult(
                 m_networkResourceStatsEnabled, &NetworkResourceStatsControllerRequestBus::Events::GetEnabled);
         }
@@ -244,17 +244,17 @@ namespace ResourceStats
             float sprintMaxTime;
             FirstPersonController::FirstPersonControllerComponentRequestBus::EventResult(
                 sprintMaxTime, GetEntityId(), &FirstPersonController::FirstPersonControllerComponentRequests::GetSprintMaxTime);
-            m_maxStamina = static_cast<AZ::u32>(sprintMaxTime * 1000.f);
+            m_maxStamina = aznumeric_cast<AZ::u32>(sprintMaxTime * 1000.f);
             float sprintHeldTime;
             FirstPersonController::FirstPersonControllerComponentRequestBus::EventResult(
                 sprintHeldTime, GetEntityId(), &FirstPersonController::FirstPersonControllerComponentRequests::GetSprintHeldTime);
-            m_stamina = (m_maxStamina - static_cast<AZ::u32>(sprintHeldTime * 1000.f));
+            m_stamina = (m_maxStamina - aznumeric_cast<AZ::u32>(sprintHeldTime * 1000.f));
             float sprintCooldownTime;
             FirstPersonController::FirstPersonControllerComponentRequestBus::EventResult(
                 sprintCooldownTime,
                 GetEntityId(),
                 &FirstPersonController::FirstPersonControllerComponentRequests::GetSprintTotalCooldownTime);
-            m_staminaCooldownTime = static_cast<AZ::u32>(sprintCooldownTime * 1000.f);
+            m_staminaCooldownTime = aznumeric_cast<AZ::u32>(sprintCooldownTime * 1000.f);
         }
     }
 #endif
@@ -384,10 +384,10 @@ namespace ResourceStats
             m_health = AZStd::numeric_limits<AZ::u32>::max();
         else
         {
-            const AZ::s64 currentHealth = static_cast<AZ::s64>(m_health);
-            const AZ::s64 maxHealth = static_cast<AZ::s64>(m_maxHealth);
+            const AZ::s64 currentHealth = aznumeric_cast<AZ::s64>(m_health);
+            const AZ::s64 maxHealth = aznumeric_cast<AZ::s64>(m_maxHealth);
             const AZ::s64 newHealth = AZStd::clamp(currentHealth + new_healthDelta, 0LL, maxHealth);
-            m_health = static_cast<AZ::u32>(newHealth);
+            m_health = aznumeric_cast<AZ::u32>(newHealth);
         }
 #ifdef NETWORK_RESOURCE_STATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
@@ -434,10 +434,10 @@ namespace ResourceStats
             m_mana = AZStd::numeric_limits<AZ::u32>::max();
         else
         {
-            const AZ::s64 currentMana = static_cast<AZ::s64>(m_mana);
-            const AZ::s64 maxMana = static_cast<AZ::s64>(m_maxMana);
+            const AZ::s64 currentMana = aznumeric_cast<AZ::s64>(m_mana);
+            const AZ::s64 maxMana = aznumeric_cast<AZ::s64>(m_maxMana);
             const AZ::s64 newMana = AZStd::clamp(currentMana + new_manaDelta, 0LL, maxMana);
-            m_mana = static_cast<AZ::u32>(newMana);
+            m_mana = aznumeric_cast<AZ::u32>(newMana);
         }
 #ifdef NETWORK_RESOURCE_STATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
@@ -484,10 +484,10 @@ namespace ResourceStats
             m_strength = AZStd::numeric_limits<AZ::u32>::max();
         else
         {
-            const AZ::s64 currentStrength = static_cast<AZ::s64>(m_strength);
-            const AZ::s64 maxStrength = static_cast<AZ::s64>(m_maxStrength);
+            const AZ::s64 currentStrength = aznumeric_cast<AZ::s64>(m_strength);
+            const AZ::s64 maxStrength = aznumeric_cast<AZ::s64>(m_maxStrength);
             const AZ::s64 newStrength = AZStd::clamp(currentStrength + new_strengthDelta, 0LL, maxStrength);
-            m_strength = static_cast<AZ::u32>(newStrength);
+            m_strength = aznumeric_cast<AZ::u32>(newStrength);
         }
 #ifdef NETWORK_RESOURCE_STATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
@@ -541,10 +541,10 @@ namespace ResourceStats
             m_stamina = AZStd::numeric_limits<AZ::u32>::max();
         else
         {
-            const AZ::s64 currentStamina = static_cast<AZ::s64>(m_stamina);
-            const AZ::s64 maxStamina = static_cast<AZ::s64>(m_maxStamina);
+            const AZ::s64 currentStamina = aznumeric_cast<AZ::s64>(m_stamina);
+            const AZ::s64 maxStamina = aznumeric_cast<AZ::s64>(m_maxStamina);
             const AZ::s64 newStamina = AZStd::clamp(currentStamina + new_staminaDelta, 0LL, maxStamina);
-            m_stamina = static_cast<AZ::u32>(newStamina);
+            m_stamina = aznumeric_cast<AZ::u32>(newStamina);
         }
 #ifdef NETWORK_RESOURCE_STATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
