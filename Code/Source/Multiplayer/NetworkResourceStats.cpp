@@ -108,6 +108,7 @@ namespace ResourceStats
     }
 
 #if AZ_TRAIT_SERVER
+    // RPC methods
     void NetworkResourceStatsController::HandleSendHealthDelta(
         [[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& healthDelta)
     {
