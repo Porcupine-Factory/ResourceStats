@@ -37,6 +37,8 @@ namespace ResourceStats
 
     void NetworkResourceStatsController::OnDeactivate([[maybe_unused]] Multiplayer::EntityIsMigrating entityIsMigrating)
     {
+        m_enableNetworkResourceStatsChangedEvent.Disconnect();
+        NetworkResourceStatsControllerRequestBus::Handler::BusDisconnect();
     }
 
     void NetworkResourceStatsController::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required)

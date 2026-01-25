@@ -139,6 +139,7 @@ namespace ResourceStats
 #ifdef NETWORK_RESOURCE_STATS
         NetworkResourceStatsControllerNotificationBus::Handler::BusDisconnect();
 #endif
+        ResourceStatsComponentRequestBus::Handler::BusDisconnect();
         AZ::TickBus::Handler::BusDisconnect();
     }
 
