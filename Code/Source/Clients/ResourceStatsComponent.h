@@ -91,8 +91,8 @@ namespace ResourceStats
         void OnNetworkTickFinish(const float& deltaTime, const bool& server, const AZ::EntityId& entity);
 
         // Various methods used to implement the Resource Stats functionality
-        void SetNetworkResourceStatsProperties() const;
         void GetNetworkResourceStatsProperties();
+        void SetNetworkResourceStatsProperties() const;
 
 #ifdef FIRST_PERSON_CONTROLLER
         void InitStamina();
