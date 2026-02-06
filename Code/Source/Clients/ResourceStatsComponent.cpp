@@ -191,14 +191,14 @@ namespace ResourceStats
         m_prevDeltaTime = deltaTime;
     }
 
-    void ResourceStatsComponent::OnNetworkTickStart(const float& deltaTime, const bool& server, const AZ::EntityId& entity)
+    void ResourceStatsComponent::OnNetworkTickStart(const float& deltaTime, const bool& server, const AZ::EntityId& entityId)
     {
         if (!m_isAutonomousClient && !m_isServer && !m_isHost)
         {
             NotAutonomousSoDisconnect();
             return;
         }
-        if (entity != GetEntityId())
+        if (entityId != GetEntityId())
             return;
         if (!((m_isHost && server) || (m_isServer && !server)))
         {
@@ -260,9 +260,9 @@ namespace ResourceStats
     }
 #endif
 
-    void ResourceStatsComponent::OnNetworkTickFinish(const float& deltaTime, const bool& server, const AZ::EntityId& entity)
+    void ResourceStatsComponent::OnNetworkTickFinish(const float& deltaTime, const bool& server, const AZ::EntityId& entityId)
     {
-        if ((!m_isAutonomousClient && !m_isServer && !m_isHost) || (entity != GetEntityId()))
+        if ((!m_isAutonomousClient && !m_isServer && !m_isHost) || (entityId != GetEntityId()))
             return;
         if (!((m_isHost && server) || (m_isServer && !server)))
             ResourceStatsComponentNotificationBus::Broadcast(
