@@ -32,9 +32,40 @@ ly_add_target(
            AZ::AzCore
 )
 
+# Determine if the Multiplayer gem is enabled
+set(MULTIPLAYER_GEM_ENABLED FALSE)
+
+# Check project.json for the Multiplayer gem
+if(NOT MULTIPLAYER_GEM_ENABLED AND EXISTS "${CMAKE_SOURCE_DIR}/project.json")
+    file(READ "${CMAKE_SOURCE_DIR}/project.json" _project_json_content)
+    if(_project_json_content MATCHES "\"Multiplayer\"" OR
+       _project_json_content MATCHES "\"Multiplayer==" OR
+       _project_json_content MATCHES "\"Multiplayer>=" OR
+       _project_json_content MATCHES "\"Multiplayer~=" OR
+       _project_json_content MATCHES "\"Multiplayer>" OR
+       _project_json_content MATCHES "\"Multiplayer<")
+        set(MULTIPLAYER_GEM_ENABLED TRUE)
+    endif()
+endif()
+
+# Fallback to checking enabled_gems.cmake
+if(NOT MULTIPLAYER_GEM_ENABLED AND EXISTS "${CMAKE_SOURCE_DIR}/Code/enabled_gems.cmake")
+    file(READ "${CMAKE_SOURCE_DIR}/Code/enabled_gems.cmake" _enabled_gems_content)
+    if(_enabled_gems_content MATCHES "\"Multiplayer\"" OR _enabled_gems_content MATCHES "[ \t\r\n]Multiplayer[ \t\r\n]")
+        set(MULTIPLAYER_GEM_ENABLED TRUE)
+    endif()
+endif()
+
+# When building the engine workspace directly, standard gems are included
+if(NOT MULTIPLAYER_GEM_ENABLED AND EXISTS "${CMAKE_SOURCE_DIR}/engine.json")
+    if(EXISTS "${CMAKE_SOURCE_DIR}/Gems/Multiplayer")
+        set(MULTIPLAYER_GEM_ENABLED TRUE)
+    endif()
+endif()
+
 # The ${gem_name}.Private.Object target is an internal target
 # It should not be used outside of this Gems CMakeLists.txt
-if(TARGET Gem::FirstPersonController AND TARGET Gem::AMultiplayerPhysX5.Unified.Static)
+if(TARGET Gem::FirstPersonController AND MULTIPLAYER_GEM_ENABLED)
 ly_add_target(
     NAME ${gem_name}.Private.Object STATIC
     NAMESPACE Gem
@@ -54,14 +85,14 @@ ly_add_target(
             AZ::AzFramework
             Gem::FirstPersonController
             # For autogen components
-            Gem::AMultiplayerPhysX5.Unified.Static
+            Gem::Multiplayer.Unified.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
         *.AutoComponent.xml,AutoComponentTypes_Header.jinja,$path/AutoComponentTypes.h
         *.AutoComponent.xml,AutoComponentTypes_Source.jinja,$path/AutoComponentTypes.cpp
 )
-elseif(TARGET Gem::AMultiplayerPhysX5.Unified.Static)
+elseif(MULTIPLAYER_GEM_ENABLED)
 ly_add_target(
     NAME ${gem_name}.Private.Object STATIC
     NAMESPACE Gem
@@ -80,7 +111,7 @@ ly_add_target(
             AZ::AzCore
             AZ::AzFramework
             # For autogen components
-            Gem::AMultiplayerPhysX5.Unified.Static
+            Gem::Multiplayer.Unified.Static
     AUTOGEN_RULES
         *.AutoComponent.xml,AutoComponent_Header.jinja,$path/$fileprefix.AutoComponent.h
         *.AutoComponent.xml,AutoComponent_Source.jinja,$path/$fileprefix.AutoComponent.cpp
