@@ -1,5 +1,5 @@
 #include <Clients/ResourceStatsComponent.h>
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
 #include <Multiplayer/NetworkResourceStats.h>
 #endif
 
@@ -127,7 +127,7 @@ namespace ResourceStats
     {
         AZ::TickBus::Handler::BusConnect();
         ResourceStatsComponentRequestBus::Handler::BusConnect(GetEntityId());
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         NetworkResourceStatsControllerNotificationBus::Handler::BusConnect(GetEntityId());
 #endif
         AZ::EntityBus::Handler::BusConnect(GetEntityId());
@@ -136,7 +136,7 @@ namespace ResourceStats
     void ResourceStatsComponent::Deactivate()
     {
         AZ::EntityBus::Handler::BusDisconnect();
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         NetworkResourceStatsControllerNotificationBus::Handler::BusDisconnect();
 #endif
         ResourceStatsComponentRequestBus::Handler::BusDisconnect();
@@ -145,7 +145,7 @@ namespace ResourceStats
 
     void ResourceStatsComponent::OnEntityActivated([[maybe_unused]] const AZ::EntityId& entityId)
     {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         // Get access to the NetworkResourceStats object and its member
         const AZ::Entity* entity = GetEntity();
         m_networkResourceStatsObject = entity->FindComponent<NetworkResourceStats>();
@@ -169,7 +169,7 @@ namespace ResourceStats
     {
 #ifdef FIRST_PERSON_CONTROLLER
         dependent.push_back(AZ_CRC_CE("FirstPersonControllerService"));
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         dependent.push_back(AZ_CRC_CE("NetworkFPCService"));
 #endif
 #endif
@@ -205,7 +205,7 @@ namespace ResourceStats
             ResourceStatsComponentNotificationBus::Broadcast(
                 &ResourceStatsComponentNotificationBus::Events::OnNetworkResourceStatsTickStart,
                 (deltaTime + m_prevNetworkResourceStatsDeltaTime) / 2.f);
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
             if (!m_networkResourceStatsEnabled)
                 NetworkResourceStatsControllerRequestBus::BroadcastResult(
                     m_networkResourceStatsEnabled, &NetworkResourceStatsControllerRequestBus::Events::GetEnabled);
@@ -219,7 +219,7 @@ namespace ResourceStats
     {
         if (m_networkResourceStatsEnabled && m_networkResourceStatsObject != nullptr)
         {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
             m_stamina = m_networkResourceStatsControllerObject->GetStamina();
             m_maxStamina = m_networkResourceStatsControllerObject->GetMaxStamina();
             m_staminaCooldownTime = m_networkResourceStatsControllerObject->GetStaminaCooldownTime();
@@ -275,7 +275,7 @@ namespace ResourceStats
     {
         if (m_networkResourceStatsControllerObject != nullptr)
         {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
             m_health = m_networkResourceStatsControllerObject->GetHealth();
             m_maxHealth = m_networkResourceStatsControllerObject->GetMaxHealth();
             m_mana = m_networkResourceStatsControllerObject->GetMana();
@@ -295,7 +295,7 @@ namespace ResourceStats
     {
         if (m_networkResourceStatsControllerObject != nullptr)
         {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
             m_networkResourceStatsControllerObject->SetHealth(m_health);
             m_networkResourceStatsControllerObject->SetMaxHealth(m_maxHealth);
             m_networkResourceStatsControllerObject->SetMana(m_mana);
@@ -347,7 +347,7 @@ namespace ResourceStats
     // Request Bus getter and setter methods for use in scripts
     AZ::u32 ResourceStatsComponent::GetHealth() const
     {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             return m_networkResourceStatsControllerObject->GetHealth();
         else
@@ -357,14 +357,14 @@ namespace ResourceStats
     void ResourceStatsComponent::SetHealth(const AZ::u32& new_health)
     {
         m_health = new_health;
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetHealth(m_health);
 #endif
     }
     AZ::u32 ResourceStatsComponent::GetMaxHealth() const
     {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             return m_networkResourceStatsControllerObject->GetMaxHealth();
         else
@@ -374,7 +374,7 @@ namespace ResourceStats
     void ResourceStatsComponent::SetMaxHealth(const AZ::u32& new_maxHealth)
     {
         m_maxHealth = new_maxHealth;
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetMaxHealth(m_maxHealth);
 #endif
@@ -390,14 +390,14 @@ namespace ResourceStats
             const AZ::s64 newHealth = AZStd::clamp(currentHealth + new_healthDelta, 0LL, maxHealth);
             m_health = aznumeric_cast<AZ::u32>(newHealth);
         }
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetHealth(m_health);
 #endif
     }
     AZ::u32 ResourceStatsComponent::GetMana() const
     {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             return m_networkResourceStatsControllerObject->GetMana();
         else
@@ -407,14 +407,14 @@ namespace ResourceStats
     void ResourceStatsComponent::SetMana(const AZ::u32& new_mana)
     {
         m_mana = new_mana;
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetMana(m_mana);
 #endif
     }
     AZ::u32 ResourceStatsComponent::GetMaxMana() const
     {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             return m_networkResourceStatsControllerObject->GetMaxMana();
         else
@@ -424,7 +424,7 @@ namespace ResourceStats
     void ResourceStatsComponent::SetMaxMana(const AZ::u32& new_maxMana)
     {
         m_maxMana = new_maxMana;
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetMaxMana(m_maxMana);
 #endif
@@ -440,14 +440,14 @@ namespace ResourceStats
             const AZ::s64 newMana = AZStd::clamp(currentMana + new_manaDelta, 0LL, maxMana);
             m_mana = aznumeric_cast<AZ::u32>(newMana);
         }
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetMana(m_mana);
 #endif
     }
     AZ::u32 ResourceStatsComponent::GetStrength() const
     {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             return m_networkResourceStatsControllerObject->GetStrength();
         else
@@ -457,14 +457,14 @@ namespace ResourceStats
     void ResourceStatsComponent::SetStrength(const AZ::u32& new_strength)
     {
         m_strength = new_strength;
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetStrength(m_strength);
 #endif
     }
     AZ::u32 ResourceStatsComponent::GetMaxStrength() const
     {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             return m_networkResourceStatsControllerObject->GetMaxStrength();
         else
@@ -474,7 +474,7 @@ namespace ResourceStats
     void ResourceStatsComponent::SetMaxStrength(const AZ::u32& new_maxStrength)
     {
         m_maxStrength = new_maxStrength;
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetMaxStrength(m_maxStrength);
 #endif
@@ -490,7 +490,7 @@ namespace ResourceStats
             const AZ::s64 newStrength = AZStd::clamp(currentStrength + new_strengthDelta, 0LL, maxStrength);
             m_strength = aznumeric_cast<AZ::u32>(newStrength);
         }
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetStrength(m_strength);
 #endif
@@ -498,7 +498,7 @@ namespace ResourceStats
 #ifdef FIRST_PERSON_CONTROLLER
     AZ::u32 ResourceStatsComponent::GetStamina() const
     {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             return m_networkResourceStatsControllerObject->GetStamina();
         else
@@ -508,7 +508,7 @@ namespace ResourceStats
     void ResourceStatsComponent::SetStamina(const AZ::u32& new_stamina)
     {
         m_stamina = new_stamina;
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetStamina(m_stamina);
 #endif
@@ -519,7 +519,7 @@ namespace ResourceStats
     }
     AZ::u32 ResourceStatsComponent::GetMaxStamina() const
     {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             return m_networkResourceStatsControllerObject->GetMaxStamina();
         else
@@ -529,7 +529,7 @@ namespace ResourceStats
     void ResourceStatsComponent::SetMaxStamina(const AZ::u32& new_maxStamina)
     {
         m_maxStamina = new_maxStamina;
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetMaxStamina(m_maxStamina);
 #endif
@@ -547,7 +547,7 @@ namespace ResourceStats
             const AZ::s64 newStamina = AZStd::clamp(currentStamina + new_staminaDelta, 0LL, maxStamina);
             m_stamina = aznumeric_cast<AZ::u32>(newStamina);
         }
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetStamina(m_stamina);
 #endif
@@ -558,7 +558,7 @@ namespace ResourceStats
     }
     AZ::u32 ResourceStatsComponent::GetStaminaCooldownTime() const
     {
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             return m_networkResourceStatsControllerObject->GetStaminaCooldownTime();
         else
@@ -568,7 +568,7 @@ namespace ResourceStats
     void ResourceStatsComponent::SetStaminaCooldownTime(const AZ::u32& new_staminaCooldownTime)
     {
         m_staminaCooldownTime = new_staminaCooldownTime;
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetStaminaCooldownTime(m_staminaCooldownTime);
 #endif
@@ -605,7 +605,7 @@ namespace ResourceStats
     void ResourceStatsComponent::SetLocallyEnableNetworkResourceStats(const bool& new_networkResourceStatsEnabled)
     {
         m_networkResourceStatsEnabled = new_networkResourceStatsEnabled;
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         NetworkResourceStatsControllerRequestBus::Event(
             GetEntityId(), &NetworkResourceStatsControllerRequestBus::Events::SetEnabled, m_networkResourceStatsEnabled);
 #endif

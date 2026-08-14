@@ -1,5 +1,5 @@
 #pragma once
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
 #include <ResourceStats/NetworkResourceStatsControllerBus.h>
 #endif
 #include <ResourceStats/ResourceStatsComponentBus.h>
@@ -16,7 +16,7 @@ namespace ResourceStats
     class ResourceStatsComponent
         : public AZ::Component
         , public AZ::TickBus::Handler
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         , public NetworkResourceStatsControllerNotificationBus::Handler
 #endif
         , public ResourceStatsComponentRequestBus::Handler
@@ -100,7 +100,7 @@ namespace ResourceStats
 #endif
 
         // NetworkResourceStats object
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         NetworkResourceStats* m_networkResourceStatsObject = nullptr;
         NetworkResourceStatsController* m_networkResourceStatsControllerObject = nullptr;
 #else

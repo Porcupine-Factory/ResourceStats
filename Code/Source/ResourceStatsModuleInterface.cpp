@@ -21,7 +21,7 @@ namespace ResourceStats
         m_descriptors.insert(
             m_descriptors.end(), { ResourceStatsSystemComponent::CreateDescriptor(), ResourceStatsComponent::CreateDescriptor() });
 
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         //< Register multiplayer components
         CreateComponentDescriptors(m_descriptors);
 #endif

@@ -4,7 +4,7 @@
 #include <AzCore/Component/Component.h>
 #include <AzCore/Component/TickBus.h>
 #include <ResourceStats/ResourceStatsBus.h>
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
 #include <ResourceStats/NetworkResourceStatsBus.h>
 #include <ResourceStats/NetworkResourceStatsControllerBus.h>
 #endif
@@ -14,7 +14,7 @@ namespace ResourceStats
     class ResourceStatsSystemComponent
         : public AZ::Component
         , protected ResourceStatsRequestBus::Handler
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         , protected NetworkResourceStatsRequestBus::Handler
 #endif
         , public AZ::TickBus::Handler

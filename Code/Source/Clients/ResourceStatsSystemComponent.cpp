@@ -26,7 +26,7 @@ namespace ResourceStats
                     ->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, true);
 
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
                 ec->Class<ResourceStatsSystemComponent>(
                       "NetworkResourceStats", "[Description of functionality provided by this System Component]")
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
@@ -40,7 +40,7 @@ namespace ResourceStats
     void ResourceStatsSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
     {
         provided.push_back(AZ_CRC_CE("ResourceStatsService"));
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         provided.push_back(AZ_CRC_CE("NetworkResourceStatsService"));
 #endif
     }
@@ -48,7 +48,7 @@ namespace ResourceStats
     void ResourceStatsSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)
     {
         incompatible.push_back(AZ_CRC_CE("ResourceStatsService"));
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         incompatible.push_back(AZ_CRC_CE("NetworkResourceStatsService"));
 #endif
     }
@@ -85,7 +85,7 @@ namespace ResourceStats
     {
         ResourceStatsRequestBus::Handler::BusConnect();
         AZ::TickBus::Handler::BusConnect();
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         NetworkResourceStatsRequestBus::Handler::BusConnect();
         // Register multiplayer components
         RegisterMultiplayerComponents();
@@ -95,7 +95,7 @@ namespace ResourceStats
     void ResourceStatsSystemComponent::Deactivate()
     {
         AZ::TickBus::Handler::BusDisconnect();
-#ifdef NETWORK_RESOURCE_STATS
+#ifdef NETWORKRESOURCESTATS
         NetworkResourceStatsRequestBus::Handler::BusDisconnect();
 #endif
         ResourceStatsRequestBus::Handler::BusDisconnect();
