@@ -191,7 +191,7 @@ namespace ResourceStats
         m_prevDeltaTime = deltaTime;
     }
 
-    void ResourceStatsComponent::OnNetworkTickStart(const float& deltaTime, const bool& server, const AZ::EntityId& entityId)
+    void ResourceStatsComponent::OnNetworkTickStart(const float deltaTime, const bool server, const AZ::EntityId& entityId)
     {
         if (!m_isAutonomousClient && !m_isServer && !m_isHost)
         {
@@ -260,7 +260,7 @@ namespace ResourceStats
     }
 #endif
 
-    void ResourceStatsComponent::OnNetworkTickFinish(const float& deltaTime, const bool& server, const AZ::EntityId& entityId)
+    void ResourceStatsComponent::OnNetworkTickFinish(const float deltaTime, const bool server, const AZ::EntityId& entityId)
     {
         if ((!m_isAutonomousClient && !m_isServer && !m_isHost) || (entityId != GetEntityId()))
             return;
@@ -311,7 +311,7 @@ namespace ResourceStats
     }
 
     // Frame tick == 0, physics fixed timestep == 1 (not used in ResourceStats), network tick == 2
-    void ResourceStatsComponent::ProcessInput([[maybe_unused]] const float& deltaTime, const AZ::u8& tickTimestepNetwork)
+    void ResourceStatsComponent::ProcessInput([[maybe_unused]] const float deltaTime, const AZ::u8& tickTimestepNetwork)
     {
         if (!m_staminaInitialized && !m_networkResourceStatsEnabled)
         {
@@ -594,7 +594,7 @@ namespace ResourceStats
     {
         return m_networkResourceStatsEnabled;
     }
-    void ResourceStatsComponent::SetLocallyEnableNetworkResourceStats(const bool& new_networkResourceStatsEnabled)
+    void ResourceStatsComponent::SetLocallyEnableNetworkResourceStats(const bool new_networkResourceStatsEnabled)
     {
         m_networkResourceStatsEnabled = new_networkResourceStatsEnabled;
 #ifdef NETWORKRESOURCESTATS

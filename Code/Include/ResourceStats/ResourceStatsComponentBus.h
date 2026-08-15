@@ -43,7 +43,7 @@ namespace ResourceStats
         virtual bool GetIsServer() const = 0;
         virtual bool GetIsHost() const = 0;
         virtual bool GetLocallyEnableNetworkResourceStats() const = 0;
-        virtual void SetLocallyEnableNetworkResourceStats(const bool& new_networkResourceStatsEnabled) = 0;
+        virtual void SetLocallyEnableNetworkResourceStats(const bool new_networkResourceStatsEnabled) = 0;
         virtual void IsAutonomousSoConnect() = 0;
         virtual void NotAutonomousSoDisconnect() = 0;
     };
@@ -53,8 +53,8 @@ namespace ResourceStats
     class ResourceStatsComponentNotifications : public AZ::ComponentBus
     {
     public:
-        virtual void OnNetworkResourceStatsTickStart(const float&) = 0;
-        virtual void OnNetworkResourceStatsTickFinish(const float&) = 0;
+        virtual void OnNetworkResourceStatsTickStart(const float) = 0;
+        virtual void OnNetworkResourceStatsTickFinish(const float) = 0;
     };
 
     using ResourceStatsComponentNotificationBus = AZ::EBus<ResourceStatsComponentNotifications>;
@@ -71,11 +71,11 @@ namespace ResourceStats
             OnNetworkResourceStatsTickStart,
             OnNetworkResourceStatsTickFinish);
 
-        void OnNetworkResourceStatsTickStart(const float& deltaTime) override
+        void OnNetworkResourceStatsTickStart(const float deltaTime) override
         {
             Call(FN_OnNetworkResourceStatsTickStart, deltaTime);
         }
-        void OnNetworkResourceStatsTickFinish(const float& deltaTime) override
+        void OnNetworkResourceStatsTickFinish(const float deltaTime) override
         {
             Call(FN_OnNetworkResourceStatsTickFinish, deltaTime);
         }

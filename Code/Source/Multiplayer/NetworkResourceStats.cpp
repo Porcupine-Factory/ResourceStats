@@ -138,15 +138,15 @@ namespace ResourceStats
 
     // Event Notification methods for use in scripts
     void NetworkResourceStatsController::OnNetworkTickStart(
-        [[maybe_unused]] const float& deltaTime, [[maybe_unused]] const bool& server, [[maybe_unused]] const AZ::EntityId& entityId)
+        [[maybe_unused]] const float deltaTime, [[maybe_unused]] const bool server, [[maybe_unused]] const AZ::EntityId& entityId)
     {
     }
     void NetworkResourceStatsController::OnNetworkTickFinish(
-        [[maybe_unused]] const float& deltaTime, [[maybe_unused]] const bool& server, [[maybe_unused]] const AZ::EntityId& entityId)
+        [[maybe_unused]] const float deltaTime, [[maybe_unused]] const bool server, [[maybe_unused]] const AZ::EntityId& entityId)
     {
     }
 
-    void NetworkResourceStatsController::OnEnableNetworkResourceStatsChanged(const bool& enable)
+    void NetworkResourceStatsController::OnEnableNetworkResourceStatsChanged(const bool enable)
     {
         m_disabled = !enable;
         m_resourceStatsObject->m_networkResourceStatsEnabled = enable;
@@ -157,7 +157,7 @@ namespace ResourceStats
     {
         return !m_disabled;
     }
-    void NetworkResourceStatsController::SetEnabled(const bool& new_enabled)
+    void NetworkResourceStatsController::SetEnabled(const bool new_enabled)
     {
         m_disabled = !new_enabled;
         m_resourceStatsObject->m_networkResourceStatsEnabled = new_enabled;

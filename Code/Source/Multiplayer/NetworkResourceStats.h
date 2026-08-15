@@ -40,7 +40,7 @@ namespace ResourceStats
 
         // NetworkResourceStatsControllerRequestBus
         bool GetEnabled() const override;
-        void SetEnabled(const bool& new_enabled) override;
+        void SetEnabled(const bool new_enabled) override;
 
 #if AZ_TRAIT_SERVER
         void HandleSendHealthDelta(AzNetworking::IConnection* invokingConnection, const AZ::s64& healthDelta) override;
@@ -51,8 +51,8 @@ namespace ResourceStats
 
     private:
         // NetworkResourceStatsControllerNotificationBus
-        void OnNetworkTickStart(const float& deltaTime, const bool& server, const AZ::EntityId& entityId);
-        void OnNetworkTickFinish(const float& deltaTime, const bool& server, const AZ::EntityId& entityId);
+        void OnNetworkTickStart(const float deltaTime, const bool server, const AZ::EntityId& entityId);
+        void OnNetworkTickFinish(const float deltaTime, const bool server, const AZ::EntityId& entityId);
 
         // Used to initialize Network Properties from initial values in the Resource Stats component
         bool m_init = true;
@@ -65,7 +65,7 @@ namespace ResourceStats
 
         // EnableNetworkResourceStats Changed Event
         AZ::Event<bool>::Handler m_enableNetworkResourceStatsChangedEvent;
-        void OnEnableNetworkResourceStatsChanged(const bool& enable);
+        void OnEnableNetworkResourceStatsChanged(const bool enable);
         bool m_disabled = false;
     };
 } // namespace ResourceStats
