@@ -336,14 +336,6 @@ namespace ResourceStats
         }
     }
 
-    // Event Notification methods for use in scripts
-    void ResourceStatsComponent::OnNetworkResourceStatsTickStart([[maybe_unused]] const float& deltaTime)
-    {
-    }
-    void ResourceStatsComponent::OnNetworkResourceStatsTickFinish([[maybe_unused]] const float& deltaTime)
-    {
-    }
-
     // Request Bus getter and setter methods for use in scripts
     AZ::u32 ResourceStatsComponent::GetHealth() const
     {

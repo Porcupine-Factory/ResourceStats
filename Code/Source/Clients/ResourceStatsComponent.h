@@ -75,10 +75,6 @@ namespace ResourceStats
         void IsAutonomousSoConnect() override;
         void NotAutonomousSoDisconnect() override;
 
-        // ResourceStatsComponentNotificationBus
-        void OnNetworkResourceStatsTickStart(const float& deltaTime);
-        void OnNetworkResourceStatsTickFinish(const float& deltaTime);
-
     private:
         // TickBus interface
         void OnTick(float deltaTime, AZ::ScriptTimePoint) override;
