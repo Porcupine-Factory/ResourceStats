@@ -55,6 +55,9 @@ namespace ResourceStats
 
     void ResourceStatsSystemComponent::GetRequiredServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& required)
     {
+#ifdef NETWORKRESOURCESTATS
+        required.push_back(AZ_CRC_CE("MultiplayerService"));
+#endif
     }
 
     void ResourceStatsSystemComponent::GetDependentServices([[maybe_unused]] AZ::ComponentDescriptor::DependencyArrayType& dependent)
