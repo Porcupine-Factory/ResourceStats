@@ -187,8 +187,7 @@ namespace ResourceStats
 
     void ResourceStatsComponent::OnTick(float deltaTime, AZ::ScriptTimePoint)
     {
-        ProcessInput(((deltaTime + m_prevDeltaTime) / 2.f), 0);
-        m_prevDeltaTime = deltaTime;
+        ProcessInput(deltaTime, 0);
     }
 
     void ResourceStatsComponent::OnNetworkTickStart(const float deltaTime, const bool server, const AZ::EntityId& entityId)
@@ -203,14 +202,13 @@ namespace ResourceStats
         if (!((m_isHost && server) || (m_isServer && !server)))
         {
             ResourceStatsComponentNotificationBus::Broadcast(
-                &ResourceStatsComponentNotificationBus::Events::OnNetworkResourceStatsTickStart,
-                (deltaTime + m_prevNetworkResourceStatsDeltaTime) / 2.f);
+                &ResourceStatsComponentNotificationBus::Events::OnNetworkResourceStatsTickStart, deltaTime);
 #ifdef NETWORKRESOURCESTATS
             if (!m_networkResourceStatsEnabled)
                 NetworkResourceStatsControllerRequestBus::BroadcastResult(
                     m_networkResourceStatsEnabled, &NetworkResourceStatsControllerRequestBus::Events::GetEnabled);
 #endif
-            ProcessInput(((deltaTime + m_prevNetworkResourceStatsDeltaTime) / 2.f), 2);
+            ProcessInput(deltaTime, 2);
         }
     }
 
@@ -266,9 +264,7 @@ namespace ResourceStats
             return;
         if (!((m_isHost && server) || (m_isServer && !server)))
             ResourceStatsComponentNotificationBus::Broadcast(
-                &ResourceStatsComponentNotificationBus::Events::OnNetworkResourceStatsTickFinish,
-                (deltaTime + m_prevNetworkResourceStatsDeltaTime) / 2.f);
-        m_prevNetworkResourceStatsDeltaTime = deltaTime;
+                &ResourceStatsComponentNotificationBus::Events::OnNetworkResourceStatsTickFinish, deltaTime);
     }
 
     void ResourceStatsComponent::GetNetworkResourceStatsProperties()

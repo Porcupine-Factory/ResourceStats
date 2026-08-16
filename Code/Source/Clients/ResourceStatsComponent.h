@@ -104,10 +104,6 @@ namespace ResourceStats
         bool* m_networkResourceStatsControllerObject = nullptr;
 #endif
 
-        // Stores the previous NetworkResourceStats tick deltaTime
-        float m_prevDeltaTime = 1.f / 60.f;
-        float m_prevNetworkResourceStatsDeltaTime = 0.033f;
-
         // Various resources / stats
         AZ::u32 m_health = 100;
         AZ::u32 m_maxHealth = 100;
