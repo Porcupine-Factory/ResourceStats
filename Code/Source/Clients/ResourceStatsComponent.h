@@ -80,7 +80,7 @@ namespace ResourceStats
         void OnTick(float deltaTime, AZ::ScriptTimePoint) override;
 
         // Called on each tick
-        void ProcessInput(const float deltaTime, const AZ::u8& tickTimestepNetwork);
+        void ProcessInput(const float deltaTime, const AZ::u8 tickTimestepNetwork);
 
         // NetworkResourceStatsControllerNotificationBus
         void OnNetworkTickStart(const float deltaTime, const bool server, const AZ::EntityId& entityId);

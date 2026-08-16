@@ -307,7 +307,7 @@ namespace ResourceStats
     }
 
     // Frame tick == 0, physics fixed timestep == 1 (not used in ResourceStats), network tick == 2
-    void ResourceStatsComponent::ProcessInput([[maybe_unused]] const float deltaTime, const AZ::u8& tickTimestepNetwork)
+    void ResourceStatsComponent::ProcessInput([[maybe_unused]] const float deltaTime, const AZ::u8 tickTimestepNetwork)
     {
         if (!m_staminaInitialized && !m_networkResourceStatsEnabled)
         {
