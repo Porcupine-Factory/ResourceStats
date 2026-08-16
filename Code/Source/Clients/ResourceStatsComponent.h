@@ -43,35 +43,35 @@ namespace ResourceStats
 
         // ResourceStatsComponentRequestBus
         AZ::u32 GetHealth() const override;
-        void SetHealth(const AZ::u32& new_health) override;
+        void SetHealth(const AZ::u32& health) override;
         AZ::u32 GetMaxHealth() const override;
-        void SetMaxHealth(const AZ::u32& new_maxHealth) override;
-        void SetHealthDelta(const AZ::s64& new_healthDelta) override;
+        void SetMaxHealth(const AZ::u32& maxHealth) override;
+        void SetHealthDelta(const AZ::s64& healthDelta) override;
         AZ::u32 GetMana() const override;
-        void SetMana(const AZ::u32& new_mana) override;
+        void SetMana(const AZ::u32& mana) override;
         AZ::u32 GetMaxMana() const override;
-        void SetMaxMana(const AZ::u32& new_maxMana) override;
-        void SetManaDelta(const AZ::s64& new_manaDelta) override;
+        void SetMaxMana(const AZ::u32& maxMana) override;
+        void SetManaDelta(const AZ::s64& manaDelta) override;
         AZ::u32 GetStrength() const override;
-        void SetStrength(const AZ::u32& new_strength) override;
+        void SetStrength(const AZ::u32& strength) override;
         AZ::u32 GetMaxStrength() const override;
-        void SetMaxStrength(const AZ::u32& new_maxStrength) override;
-        void SetStrengthDelta(const AZ::s64& new_strengthDelta) override;
+        void SetMaxStrength(const AZ::u32& maxStrength) override;
+        void SetStrengthDelta(const AZ::s64& strengthDelta) override;
 #ifdef FIRST_PERSON_CONTROLLER
         AZ::u32 GetStamina() const override;
-        void SetStamina(const AZ::u32& new_stamina) override;
+        void SetStamina(const AZ::u32& stamina) override;
         AZ::u32 GetMaxStamina() const override;
-        void SetMaxStamina(const AZ::u32& new_maxStamina) override;
-        void SetStaminaDelta(const AZ::s64& new_staminaDelta) override;
+        void SetMaxStamina(const AZ::u32& maxStamina) override;
+        void SetStaminaDelta(const AZ::s64& staminaDelta) override;
         AZ::u32 GetStaminaCooldownTime() const override;
-        void SetStaminaCooldownTime(const AZ::u32& new_staminaCooldownTime) override;
+        void SetStaminaCooldownTime(const AZ::u32& staminaCooldownTime) override;
         float GetStaminaPercentage() const override;
 #endif
         bool GetIsAutonomousClient() const override;
         bool GetIsServer() const override;
         bool GetIsHost() const override;
         bool GetLocallyEnableNetworkResourceStats() const override;
-        void SetLocallyEnableNetworkResourceStats(const bool new_networkResourceStatsEnabled) override;
+        void SetLocallyEnableNetworkResourceStats(const bool networkResourceStatsEnabled) override;
         void IsAutonomousSoConnect() override;
         void NotAutonomousSoDisconnect() override;
 

@@ -36,14 +36,14 @@ namespace ResourceStats
         virtual void SetMaxStamina(const AZ::u32&) = 0;
         virtual void SetStaminaDelta(const AZ::s64&) = 0;
         virtual AZ::u32 GetStaminaCooldownTime() const = 0;
-        virtual void SetStaminaCooldownTime(const AZ::u32& new_staminaCooldownTime) = 0;
+        virtual void SetStaminaCooldownTime(const AZ::u32& staminaCooldownTime) = 0;
         virtual float GetStaminaPercentage() const = 0;
 #endif
         virtual bool GetIsAutonomousClient() const = 0;
         virtual bool GetIsServer() const = 0;
         virtual bool GetIsHost() const = 0;
         virtual bool GetLocallyEnableNetworkResourceStats() const = 0;
-        virtual void SetLocallyEnableNetworkResourceStats(const bool new_networkResourceStatsEnabled) = 0;
+        virtual void SetLocallyEnableNetworkResourceStats(const bool networkResourceStatsEnabled) = 0;
         virtual void IsAutonomousSoConnect() = 0;
         virtual void NotAutonomousSoDisconnect() = 0;
     };
