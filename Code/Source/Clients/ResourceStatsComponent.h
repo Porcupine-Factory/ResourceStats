@@ -113,8 +113,8 @@ namespace ResourceStats
         AZ::u32 m_maxStrength = 100;
 #ifdef FIRST_PERSON_CONTROLLER
         // Stamina units are in milliseconds of sprinting time
-        AZ::u32 m_stamina = 10000;
-        AZ::u32 m_maxStamina = 10000;
+        AZ::u32 m_stamina = 20000;
+        AZ::u32 m_maxStamina = 20000;
         AZ::u32 m_staminaCooldownTime = 10000;
         bool m_staminaInitialized = false;
 #endif

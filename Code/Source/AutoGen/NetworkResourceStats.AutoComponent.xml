@@ -58,14 +58,14 @@
                      ExposeToScript="true" GenerateEventBindings="true"
                      Description="Maximum strength"/>
     <NetworkProperty Type="AZ::u32" Name="Stamina"
-                     Init="10000" ReplicateFrom="Authority"
+                     Init="20000" ReplicateFrom="Authority"
                      ReplicateTo="Client" Container="Object"
                      IsPublic="true" IsRewindable="true"
                      IsPredictable="false" ExposeToEditor="false"
                      ExposeToScript="true" GenerateEventBindings="true"
                      Description="The amount of stamina in milliseconds of sprinting time, only used with the First Person Controller"/>
     <NetworkProperty Type="AZ::u32" Name="MaxStamina"
-                     Init="10000" ReplicateFrom="Authority"
+                     Init="20000" ReplicateFrom="Authority"
                      ReplicateTo="Client" Container="Object"
                      IsPublic="true" IsRewindable="true"
                      IsPredictable="false" ExposeToEditor="false"
