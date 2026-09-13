@@ -27,6 +27,10 @@ namespace ResourceStats
                 ->Attribute(AZ::Edit::Attributes::Min, 0)
                 ->Field("Max Strength", &ResourceStatsComponent::m_maxStrength)
                 ->Attribute(AZ::Edit::Attributes::Min, 0)
+                ->Field("Attack", &ResourceStatsComponent::m_attack)
+                ->Attribute(AZ::Edit::Attributes::Min, 0)
+                ->Field("Max Attack", &ResourceStatsComponent::m_maxAttack)
+                ->Attribute(AZ::Edit::Attributes::Min, 0)
 #ifdef FIRST_PERSON_CONTROLLER
                 ->Field("Stamina", &ResourceStatsComponent::m_stamina)
                 ->Attribute(AZ::Edit::Attributes::Min, 0)
@@ -56,6 +60,8 @@ namespace ResourceStats
                     ->DataElement(nullptr, &ResourceStatsComponent::m_maxMana, "Max Mana", "Maximum mana")
                     ->DataElement(nullptr, &ResourceStatsComponent::m_strength, "Strength", "Initial strength")
                     ->DataElement(nullptr, &ResourceStatsComponent::m_maxStrength, "Max Strength", "Maximum strength")
+                    ->DataElement(nullptr, &ResourceStatsComponent::m_attack, "Attack", "Initial Attack")
+                    ->DataElement(nullptr, &ResourceStatsComponent::m_maxAttack, "Max Attack", "Maximum Attack")
 #ifdef FIRST_PERSON_CONTROLLER
                     ->DataElement(
                         nullptr,
@@ -102,6 +108,11 @@ namespace ResourceStats
                 ->Event("Get Max Strength", &ResourceStatsComponentRequests::GetMaxStrength)
                 ->Event("Set Max Strength", &ResourceStatsComponentRequests::SetMaxStrength)
                 ->Event("Set Strength Delta", &ResourceStatsComponentRequests::SetStrengthDelta)
+                ->Event("Get Attack", &ResourceStatsComponentRequests::GetAttack)
+                ->Event("Set Attack", &ResourceStatsComponentRequests::SetAttack)
+                ->Event("Get Max Attack", &ResourceStatsComponentRequests::GetMaxAttack)
+                ->Event("Set Max Attack", &ResourceStatsComponentRequests::SetMaxAttack)
+                ->Event("Set Attack Delta", &ResourceStatsComponentRequests::SetAttackDelta)
 #ifdef FIRST_PERSON_CONTROLLER
                 ->Event("Get Stamina", &ResourceStatsComponentRequests::GetStamina)
                 ->Event("Set Stamina", &ResourceStatsComponentRequests::SetStamina)
@@ -277,6 +288,8 @@ namespace ResourceStats
             m_maxMana = m_networkResourceStatsControllerObject->GetMaxMana();
             m_strength = m_networkResourceStatsControllerObject->GetStrength();
             m_maxStrength = m_networkResourceStatsControllerObject->GetMaxStrength();
+            m_attack = m_networkResourceStatsControllerObject->GetAttack();
+            m_maxAttack = m_networkResourceStatsControllerObject->GetMaxAttack();
 #ifdef FIRST_PERSON_CONTROLLER
             m_stamina = m_networkResourceStatsControllerObject->GetStamina();
             m_maxStamina = m_networkResourceStatsControllerObject->GetMaxStamina();
@@ -297,6 +310,8 @@ namespace ResourceStats
             m_networkResourceStatsControllerObject->SetMaxMana(m_maxMana);
             m_networkResourceStatsControllerObject->SetStrength(m_strength);
             m_networkResourceStatsControllerObject->SetMaxStrength(m_maxStrength);
+            m_networkResourceStatsControllerObject->SetAttack(m_attack);
+            m_networkResourceStatsControllerObject->SetMaxAttack(m_maxAttack);
 #ifdef FIRST_PERSON_CONTROLLER
             m_networkResourceStatsControllerObject->SetStamina(m_stamina);
             m_networkResourceStatsControllerObject->SetMaxStamina(m_maxStamina);
@@ -480,6 +495,56 @@ namespace ResourceStats
 #ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetStrength(m_strength);
+#endif
+    }
+    AZ::u32 ResourceStatsComponent::GetAttack() const
+    {
+#ifdef NETWORKRESOURCESTATS
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
+            return m_networkResourceStatsControllerObject->GetAttack();
+        else
+#endif
+            return m_attack;
+    }
+    void ResourceStatsComponent::SetAttack(const AZ::u32 attack)
+    {
+        m_attack = attack;
+#ifdef NETWORKRESOURCESTATS
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
+            m_networkResourceStatsControllerObject->SetAttack(m_attack);
+#endif
+    }
+    AZ::u32 ResourceStatsComponent::GetMaxAttack() const
+    {
+#ifdef NETWORKRESOURCESTATS
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
+            return m_networkResourceStatsControllerObject->GetMaxAttack();
+        else
+#endif
+            return m_maxAttack;
+    }
+    void ResourceStatsComponent::SetMaxAttack(const AZ::u32 maxAttack)
+    {
+        m_maxAttack = maxAttack;
+#ifdef NETWORKRESOURCESTATS
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
+            m_networkResourceStatsControllerObject->SetMaxAttack(m_maxAttack);
+#endif
+    }
+    void ResourceStatsComponent::SetAttackDelta(const AZ::s64 attackDelta)
+    {
+        if (attackDelta > 0 && attackDelta > AZStd::numeric_limits<AZ::u32>::max() - m_attack)
+            m_attack = AZStd::numeric_limits<AZ::u32>::max();
+        else
+        {
+            const AZ::s64 currentAttack = aznumeric_cast<AZ::s64>(m_attack);
+            const AZ::s64 maxAttack = aznumeric_cast<AZ::s64>(m_maxAttack);
+            const AZ::s64 newAttack = AZStd::clamp(currentAttack + attackDelta, 0LL, maxAttack);
+            m_attack = aznumeric_cast<AZ::u32>(newAttack);
+        }
+#ifdef NETWORKRESOURCESTATS
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
+            m_networkResourceStatsControllerObject->SetAttack(m_attack);
 #endif
     }
 #ifdef FIRST_PERSON_CONTROLLER

@@ -78,6 +78,8 @@ namespace ResourceStats
             SetMaxMana(m_resourceStatsObject->m_maxMana);
             SetStrength(m_resourceStatsObject->m_strength);
             SetMaxStrength(m_resourceStatsObject->m_maxStrength);
+            SetAttack(m_resourceStatsObject->m_attack);
+            SetMaxAttack(m_resourceStatsObject->m_maxAttack);
 #ifdef FIRST_PERSON_CONTROLLER
             SetStamina(m_resourceStatsObject->m_stamina);
             SetMaxStamina(m_resourceStatsObject->m_maxStamina);
@@ -125,6 +127,11 @@ namespace ResourceStats
         [[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& strengthDelta)
     {
         m_resourceStatsObject->SetStrengthDelta(strengthDelta);
+    }
+    void NetworkResourceStatsController::HandleSendAttackDelta(
+        [[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& deltaAttack)
+    {
+        m_resourceStatsObject->SetAttackDelta(deltaAttack);
     }
     void NetworkResourceStatsController::HandleSendStaminaDelta(
         [[maybe_unused]] AzNetworking::IConnection* invokingConnection, const AZ::s64& staminaDelta)

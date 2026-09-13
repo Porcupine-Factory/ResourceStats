@@ -57,6 +57,11 @@ namespace ResourceStats
         AZ::u32 GetMaxStrength() const override;
         void SetMaxStrength(const AZ::u32 maxStrength) override;
         void SetStrengthDelta(const AZ::s64 strengthDelta) override;
+        AZ::u32 GetAttack() const override;
+        void SetAttack(const AZ::u32 attack) override;
+        AZ::u32 GetMaxAttack() const override;
+        void SetMaxAttack(const AZ::u32 maxAttack) override;
+        void SetAttackDelta(const AZ::s64 attackDelta) override;
 #ifdef FIRST_PERSON_CONTROLLER
         AZ::u32 GetStamina() const override;
         void SetStamina(const AZ::u32 stamina) override;
@@ -111,6 +116,8 @@ namespace ResourceStats
         AZ::u32 m_maxMana = 100;
         AZ::u32 m_strength = 100;
         AZ::u32 m_maxStrength = 100;
+        AZ::u32 m_attack = 100;
+        AZ::u32 m_maxAttack = 100;
 #ifdef FIRST_PERSON_CONTROLLER
         // Stamina units are in milliseconds of sprinting time
         AZ::u32 m_stamina = 20000;

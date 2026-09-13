@@ -29,6 +29,11 @@ namespace ResourceStats
         virtual AZ::u32 GetMaxStrength() const = 0;
         virtual void SetMaxStrength(const AZ::u32) = 0;
         virtual void SetStrengthDelta(const AZ::s64) = 0;
+        virtual AZ::u32 GetAttack() const = 0;
+        virtual void SetAttack(const AZ::u32) = 0;
+        virtual AZ::u32 GetMaxAttack() const = 0;
+        virtual void SetMaxAttack(const AZ::u32) = 0;
+        virtual void SetAttackDelta(const AZ::s64) = 0;
 #ifdef FIRST_PERSON_CONTROLLER
         virtual AZ::u32 GetStamina() const = 0;
         virtual void SetStamina(const AZ::u32) = 0;
