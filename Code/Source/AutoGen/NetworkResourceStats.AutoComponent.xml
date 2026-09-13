@@ -71,6 +71,20 @@
                      IsPredictable="false" ExposeToEditor="false"
                      ExposeToScript="true" GenerateEventBindings="true"
                      Description="Maximum Attack"/>
+    <NetworkProperty Type="AZ::u32" Name="Armor"
+                     Init="100" ReplicateFrom="Authority"
+                     ReplicateTo="Client" Container="Object"
+                     IsPublic="true" IsRewindable="true"
+                     IsPredictable="false" ExposeToEditor="false"
+                     ExposeToScript="true" GenerateEventBindings="true"
+                     Description="The amount of Armor"/>
+    <NetworkProperty Type="AZ::u32" Name="MaxArmor"
+                     Init="100" ReplicateFrom="Authority"
+                     ReplicateTo="Client" Container="Object"
+                     IsPublic="true" IsRewindable="true"
+                     IsPredictable="false" ExposeToEditor="false"
+                     ExposeToScript="true" GenerateEventBindings="true"
+                     Description="Maximum Armor"/>
     <NetworkProperty Type="AZ::u32" Name="Stamina"
                      Init="20000" ReplicateFrom="Authority"
                      ReplicateTo="Client" Container="Object"
@@ -107,6 +121,10 @@
 
     <RemoteProcedure Name="SendAttackDelta" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Attack changed RPC">
         <Param Type="AZ::s64" Name="deltaAttack"/>
+    </RemoteProcedure>
+
+    <RemoteProcedure Name="SendArmorDelta" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Armor changed RPC">
+        <Param Type="AZ::s64" Name="deltaArmor"/>
     </RemoteProcedure>
 
     <RemoteProcedure Name="SendStaminaDelta" InvokeFrom="Server" HandleOn="Authority" IsPublic="true" IsReliable="true" GenerateEventBindings="true" Description="Stamina changed RPC, only used with the First Person Controller">

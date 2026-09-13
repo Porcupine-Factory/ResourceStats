@@ -47,6 +47,7 @@ namespace ResourceStats
         void HandleSendManaDelta(AzNetworking::IConnection* invokingConnection, const AZ::s64& manaDelta) override;
         void HandleSendStrengthDelta(AzNetworking::IConnection* invokingConnection, const AZ::s64& strengthDelta) override;
         void HandleSendAttackDelta(AzNetworking::IConnection* invokingConnection, const AZ::s64& deltaAttack) override;
+        void HandleSendArmorDelta(AzNetworking::IConnection* invokingConnection, const AZ::s64& deltaArmor) override;
         void HandleSendStaminaDelta(AzNetworking::IConnection* invokingConnection, const AZ::s64& staminaDelta) override;
 #endif
 

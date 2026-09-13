@@ -31,6 +31,10 @@ namespace ResourceStats
                 ->Attribute(AZ::Edit::Attributes::Min, 0)
                 ->Field("Max Attack", &ResourceStatsComponent::m_maxAttack)
                 ->Attribute(AZ::Edit::Attributes::Min, 0)
+                ->Field("Armor", &ResourceStatsComponent::m_armor)
+                ->Attribute(AZ::Edit::Attributes::Min, 0)
+                ->Field("Max Armor", &ResourceStatsComponent::m_maxArmor)
+                ->Attribute(AZ::Edit::Attributes::Min, 0)
 #ifdef FIRST_PERSON_CONTROLLER
                 ->Field("Stamina", &ResourceStatsComponent::m_stamina)
                 ->Attribute(AZ::Edit::Attributes::Min, 0)
@@ -62,6 +66,8 @@ namespace ResourceStats
                     ->DataElement(nullptr, &ResourceStatsComponent::m_maxStrength, "Max Strength", "Maximum strength")
                     ->DataElement(nullptr, &ResourceStatsComponent::m_attack, "Attack", "Initial Attack")
                     ->DataElement(nullptr, &ResourceStatsComponent::m_maxAttack, "Max Attack", "Maximum Attack")
+                    ->DataElement(nullptr, &ResourceStatsComponent::m_armor, "Armor", "Initial Armor")
+                    ->DataElement(nullptr, &ResourceStatsComponent::m_maxArmor, "Max Armor", "Maximum Armor")
 #ifdef FIRST_PERSON_CONTROLLER
                     ->DataElement(
                         nullptr,
@@ -113,6 +119,11 @@ namespace ResourceStats
                 ->Event("Get Max Attack", &ResourceStatsComponentRequests::GetMaxAttack)
                 ->Event("Set Max Attack", &ResourceStatsComponentRequests::SetMaxAttack)
                 ->Event("Set Attack Delta", &ResourceStatsComponentRequests::SetAttackDelta)
+                ->Event("Get Armor", &ResourceStatsComponentRequests::GetArmor)
+                ->Event("Set Armor", &ResourceStatsComponentRequests::SetArmor)
+                ->Event("Get Max Armor", &ResourceStatsComponentRequests::GetMaxArmor)
+                ->Event("Set Max Armor", &ResourceStatsComponentRequests::SetMaxArmor)
+                ->Event("Set Armor Delta", &ResourceStatsComponentRequests::SetArmorDelta)
 #ifdef FIRST_PERSON_CONTROLLER
                 ->Event("Get Stamina", &ResourceStatsComponentRequests::GetStamina)
                 ->Event("Set Stamina", &ResourceStatsComponentRequests::SetStamina)
@@ -290,6 +301,8 @@ namespace ResourceStats
             m_maxStrength = m_networkResourceStatsControllerObject->GetMaxStrength();
             m_attack = m_networkResourceStatsControllerObject->GetAttack();
             m_maxAttack = m_networkResourceStatsControllerObject->GetMaxAttack();
+            m_armor = m_networkResourceStatsControllerObject->GetArmor();
+            m_maxArmor = m_networkResourceStatsControllerObject->GetMaxArmor();
 #ifdef FIRST_PERSON_CONTROLLER
             m_stamina = m_networkResourceStatsControllerObject->GetStamina();
             m_maxStamina = m_networkResourceStatsControllerObject->GetMaxStamina();
@@ -312,6 +325,8 @@ namespace ResourceStats
             m_networkResourceStatsControllerObject->SetMaxStrength(m_maxStrength);
             m_networkResourceStatsControllerObject->SetAttack(m_attack);
             m_networkResourceStatsControllerObject->SetMaxAttack(m_maxAttack);
+            m_networkResourceStatsControllerObject->SetArmor(m_armor);
+            m_networkResourceStatsControllerObject->SetMaxArmor(m_maxArmor);
 #ifdef FIRST_PERSON_CONTROLLER
             m_networkResourceStatsControllerObject->SetStamina(m_stamina);
             m_networkResourceStatsControllerObject->SetMaxStamina(m_maxStamina);
@@ -545,6 +560,56 @@ namespace ResourceStats
 #ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetAttack(m_attack);
+#endif
+    }
+    AZ::u32 ResourceStatsComponent::GetArmor() const
+    {
+#ifdef NETWORKRESOURCESTATS
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
+            return m_networkResourceStatsControllerObject->GetArmor();
+        else
+#endif
+            return m_armor;
+    }
+    void ResourceStatsComponent::SetArmor(const AZ::u32 armor)
+    {
+        m_armor = armor;
+#ifdef NETWORKRESOURCESTATS
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
+            m_networkResourceStatsControllerObject->SetArmor(m_armor);
+#endif
+    }
+    AZ::u32 ResourceStatsComponent::GetMaxArmor() const
+    {
+#ifdef NETWORKRESOURCESTATS
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
+            return m_networkResourceStatsControllerObject->GetMaxArmor();
+        else
+#endif
+            return m_maxArmor;
+    }
+    void ResourceStatsComponent::SetMaxArmor(const AZ::u32 maxArmor)
+    {
+        m_maxArmor = maxArmor;
+#ifdef NETWORKRESOURCESTATS
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
+            m_networkResourceStatsControllerObject->SetMaxArmor(m_maxArmor);
+#endif
+    }
+    void ResourceStatsComponent::SetArmorDelta(const AZ::s64 armorDelta)
+    {
+        if (armorDelta > 0 && armorDelta > AZStd::numeric_limits<AZ::u32>::max() - m_armor)
+            m_armor = AZStd::numeric_limits<AZ::u32>::max();
+        else
+        {
+            const AZ::s64 currentArmor = aznumeric_cast<AZ::s64>(m_armor);
+            const AZ::s64 maxArmor = aznumeric_cast<AZ::s64>(m_maxArmor);
+            const AZ::s64 newArmor = AZStd::clamp(currentArmor + armorDelta, 0LL, maxArmor);
+            m_armor = aznumeric_cast<AZ::u32>(newArmor);
+        }
+#ifdef NETWORKRESOURCESTATS
+        if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
+            m_networkResourceStatsControllerObject->SetArmor(m_armor);
 #endif
     }
 #ifdef FIRST_PERSON_CONTROLLER
