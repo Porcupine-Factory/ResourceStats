@@ -288,7 +288,7 @@ namespace ResourceStats
 
     void ResourceStatsComponent::SetNetworkResourceStatsProperties() const
     {
-        if (m_networkResourceStatsControllerObject != nullptr)
+        if (m_networkResourceStatsControllerObject != nullptr && (m_isServer || m_isHost))
         {
 #ifdef NETWORKRESOURCESTATS
             m_networkResourceStatsControllerObject->SetHealth(m_health);
