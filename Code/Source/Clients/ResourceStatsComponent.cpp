@@ -47,7 +47,6 @@ namespace ResourceStats
                     ->ClassElement(AZ::Edit::ClassElements::EditorData, "")
                     ->Attribute(AppearsInAddComponentMenu, AZ_CRC_CE("Game"))
                     ->Attribute(Category, "Resource Stats")
-                    ->Attribute(AZ::Edit::Attributes::HelpPageURL, "https://www.youtube.com/watch?v=O7rtXNlCNQQ")
 
                     ->ClassElement(AZ::Edit::ClassElements::Group, "Resources and Statistics")
                     ->Attribute(AZ::Edit::Attributes::AutoExpand, false)
