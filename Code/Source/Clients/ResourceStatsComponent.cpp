@@ -342,7 +342,7 @@ namespace ResourceStats
 #endif
             return m_health;
     }
-    void ResourceStatsComponent::SetHealth(const AZ::u32& health)
+    void ResourceStatsComponent::SetHealth(const AZ::u32 health)
     {
         m_health = health;
 #ifdef NETWORKRESOURCESTATS
@@ -359,7 +359,7 @@ namespace ResourceStats
 #endif
             return m_maxHealth;
     }
-    void ResourceStatsComponent::SetMaxHealth(const AZ::u32& maxHealth)
+    void ResourceStatsComponent::SetMaxHealth(const AZ::u32 maxHealth)
     {
         m_maxHealth = maxHealth;
 #ifdef NETWORKRESOURCESTATS
@@ -367,7 +367,7 @@ namespace ResourceStats
             m_networkResourceStatsControllerObject->SetMaxHealth(m_maxHealth);
 #endif
     }
-    void ResourceStatsComponent::SetHealthDelta(const AZ::s64& healthDelta)
+    void ResourceStatsComponent::SetHealthDelta(const AZ::s64 healthDelta)
     {
         if (healthDelta > 0 && healthDelta > AZStd::numeric_limits<AZ::u32>::max() - m_health)
             m_health = AZStd::numeric_limits<AZ::u32>::max();
@@ -392,7 +392,7 @@ namespace ResourceStats
 #endif
             return m_mana;
     }
-    void ResourceStatsComponent::SetMana(const AZ::u32& mana)
+    void ResourceStatsComponent::SetMana(const AZ::u32 mana)
     {
         m_mana = mana;
 #ifdef NETWORKRESOURCESTATS
@@ -409,7 +409,7 @@ namespace ResourceStats
 #endif
             return m_maxMana;
     }
-    void ResourceStatsComponent::SetMaxMana(const AZ::u32& maxMana)
+    void ResourceStatsComponent::SetMaxMana(const AZ::u32 maxMana)
     {
         m_maxMana = maxMana;
 #ifdef NETWORKRESOURCESTATS
@@ -417,7 +417,7 @@ namespace ResourceStats
             m_networkResourceStatsControllerObject->SetMaxMana(m_maxMana);
 #endif
     }
-    void ResourceStatsComponent::SetManaDelta(const AZ::s64& manaDelta)
+    void ResourceStatsComponent::SetManaDelta(const AZ::s64 manaDelta)
     {
         if (manaDelta > 0 && manaDelta > AZStd::numeric_limits<AZ::u32>::max() - m_mana)
             m_mana = AZStd::numeric_limits<AZ::u32>::max();
@@ -442,7 +442,7 @@ namespace ResourceStats
 #endif
             return m_strength;
     }
-    void ResourceStatsComponent::SetStrength(const AZ::u32& strength)
+    void ResourceStatsComponent::SetStrength(const AZ::u32 strength)
     {
         m_strength = strength;
 #ifdef NETWORKRESOURCESTATS
@@ -459,7 +459,7 @@ namespace ResourceStats
 #endif
             return m_maxStrength;
     }
-    void ResourceStatsComponent::SetMaxStrength(const AZ::u32& maxStrength)
+    void ResourceStatsComponent::SetMaxStrength(const AZ::u32 maxStrength)
     {
         m_maxStrength = maxStrength;
 #ifdef NETWORKRESOURCESTATS
@@ -467,7 +467,7 @@ namespace ResourceStats
             m_networkResourceStatsControllerObject->SetMaxStrength(m_maxStrength);
 #endif
     }
-    void ResourceStatsComponent::SetStrengthDelta(const AZ::s64& strengthDelta)
+    void ResourceStatsComponent::SetStrengthDelta(const AZ::s64 strengthDelta)
     {
         if (strengthDelta > 0 && strengthDelta > AZStd::numeric_limits<AZ::u32>::max() - m_strength)
             m_strength = AZStd::numeric_limits<AZ::u32>::max();
@@ -493,7 +493,7 @@ namespace ResourceStats
 #endif
             return m_stamina;
     }
-    void ResourceStatsComponent::SetStamina(const AZ::u32& stamina)
+    void ResourceStatsComponent::SetStamina(const AZ::u32 stamina)
     {
         m_stamina = stamina;
 #ifdef NETWORKRESOURCESTATS
@@ -514,7 +514,7 @@ namespace ResourceStats
 #endif
             return m_maxStamina;
     }
-    void ResourceStatsComponent::SetMaxStamina(const AZ::u32& maxStamina)
+    void ResourceStatsComponent::SetMaxStamina(const AZ::u32 maxStamina)
     {
         m_maxStamina = maxStamina;
 #ifdef NETWORKRESOURCESTATS
@@ -524,7 +524,7 @@ namespace ResourceStats
         FirstPersonController::FirstPersonControllerComponentRequestBus::Event(
             GetEntityId(), &FirstPersonController::FirstPersonControllerComponentRequests::SetSprintMaxTime, m_maxStamina / 1000.f);
     }
-    void ResourceStatsComponent::SetStaminaDelta(const AZ::s64& staminaDelta)
+    void ResourceStatsComponent::SetStaminaDelta(const AZ::s64 staminaDelta)
     {
         if (staminaDelta > 0 && staminaDelta > AZStd::numeric_limits<AZ::u32>::max() - m_stamina)
             m_stamina = AZStd::numeric_limits<AZ::u32>::max();
@@ -553,7 +553,7 @@ namespace ResourceStats
 #endif
             return m_staminaCooldownTime;
     }
-    void ResourceStatsComponent::SetStaminaCooldownTime(const AZ::u32& staminaCooldownTime)
+    void ResourceStatsComponent::SetStaminaCooldownTime(const AZ::u32 staminaCooldownTime)
     {
         m_staminaCooldownTime = staminaCooldownTime;
 #ifdef NETWORKRESOURCESTATS

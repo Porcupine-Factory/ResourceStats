@@ -15,28 +15,28 @@ namespace ResourceStats
         ~ResourceStatsComponentRequests() override = default;
 
         virtual AZ::u32 GetHealth() const = 0;
-        virtual void SetHealth(const AZ::u32&) = 0;
+        virtual void SetHealth(const AZ::u32) = 0;
         virtual AZ::u32 GetMaxHealth() const = 0;
-        virtual void SetMaxHealth(const AZ::u32&) = 0;
-        virtual void SetHealthDelta(const AZ::s64&) = 0;
+        virtual void SetMaxHealth(const AZ::u32) = 0;
+        virtual void SetHealthDelta(const AZ::s64) = 0;
         virtual AZ::u32 GetMana() const = 0;
-        virtual void SetMana(const AZ::u32&) = 0;
+        virtual void SetMana(const AZ::u32) = 0;
         virtual AZ::u32 GetMaxMana() const = 0;
-        virtual void SetMaxMana(const AZ::u32&) = 0;
-        virtual void SetManaDelta(const AZ::s64&) = 0;
+        virtual void SetMaxMana(const AZ::u32) = 0;
+        virtual void SetManaDelta(const AZ::s64) = 0;
         virtual AZ::u32 GetStrength() const = 0;
-        virtual void SetStrength(const AZ::u32&) = 0;
+        virtual void SetStrength(const AZ::u32) = 0;
         virtual AZ::u32 GetMaxStrength() const = 0;
-        virtual void SetMaxStrength(const AZ::u32&) = 0;
-        virtual void SetStrengthDelta(const AZ::s64&) = 0;
+        virtual void SetMaxStrength(const AZ::u32) = 0;
+        virtual void SetStrengthDelta(const AZ::s64) = 0;
 #ifdef FIRST_PERSON_CONTROLLER
         virtual AZ::u32 GetStamina() const = 0;
-        virtual void SetStamina(const AZ::u32&) = 0;
+        virtual void SetStamina(const AZ::u32) = 0;
         virtual AZ::u32 GetMaxStamina() const = 0;
-        virtual void SetMaxStamina(const AZ::u32&) = 0;
-        virtual void SetStaminaDelta(const AZ::s64&) = 0;
+        virtual void SetMaxStamina(const AZ::u32) = 0;
+        virtual void SetStaminaDelta(const AZ::s64) = 0;
         virtual AZ::u32 GetStaminaCooldownTime() const = 0;
-        virtual void SetStaminaCooldownTime(const AZ::u32& staminaCooldownTime) = 0;
+        virtual void SetStaminaCooldownTime(const AZ::u32 staminaCooldownTime) = 0;
         virtual float GetStaminaPercentage() const = 0;
 #endif
         virtual bool GetIsAutonomousClient() const = 0;
