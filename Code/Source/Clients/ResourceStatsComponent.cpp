@@ -339,11 +339,13 @@ namespace ResourceStats
     // Frame tick == 0, physics fixed timestep == 1 (not used in ResourceStats), network tick == 2
     void ResourceStatsComponent::ProcessInput([[maybe_unused]] const float deltaTime, const AZ::u8 tickTimestepNetwork)
     {
+#ifdef FIRST_PERSON_CONTROLLER
         if (!m_staminaInitialized && !m_networkResourceStatsEnabled)
         {
             // Prioritize the initial stamina values in this component over the ones found in First Person Controller
             InitStamina();
         }
+#endif
         if (tickTimestepNetwork == 2)
         {
 #ifdef FIRST_PERSON_CONTROLLER
