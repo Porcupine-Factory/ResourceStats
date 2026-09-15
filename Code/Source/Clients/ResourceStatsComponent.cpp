@@ -199,6 +199,7 @@ namespace ResourceStats
     void ResourceStatsComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided)
     {
         provided.push_back(AZ_CRC_CE("ResourceStatsService"));
+        provided.push_back(AZ_CRC_CE("ResourceStatsComponent"));
     }
 
     void ResourceStatsComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible)

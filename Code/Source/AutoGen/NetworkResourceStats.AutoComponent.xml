@@ -8,6 +8,8 @@
     OverrideInclude="Multiplayer/NetworkResourceStats.h"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+    <ComponentRelation Constraint="Required" HasController="false" Name="ResourceStatsComponent" Namespace="ResourceStats" Include="Clients/ResourceStatsComponent.h" />
+
     <NetworkProperty Type="bool" Name="EnableNetworkResourceStats"
                      Init="true" ReplicateFrom="Authority"
                      ReplicateTo="Client" IsRewindable="false"
