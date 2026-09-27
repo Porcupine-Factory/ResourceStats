@@ -69,7 +69,16 @@ namespace ResourceStats
         if (m_disabled)
             return;
 
-        if (m_init)
+        // Disconnect from various buses when the NetworkResourceStatsController is not autonomous, and only do this once
+        if (m_autonomousNotDetermined)
+        {
+            m_resourceStatsObject->NotAutonomousSoDisconnect();
+            if (IsNetEntityRoleAuthority())
+                m_resourceStatsObject->m_isServer = true;
+            m_autonomousNotDetermined = false;
+        }
+
+        if (m_init && (m_resourceStatsObject->m_isServer || m_resourceStatsObject->m_isHost))
         {
             m_init = false;
             SetHealth(m_resourceStatsObject->m_health);
@@ -87,15 +96,6 @@ namespace ResourceStats
             SetMaxStamina(m_resourceStatsObject->m_maxStamina);
             SetStaminaCooldownTime(m_resourceStatsObject->m_staminaCooldownTime);
 #endif
-        }
-
-        // Disconnect from various buses when the NetworkResourceStatsController is not autonomous, and only do this once
-        if (m_autonomousNotDetermined)
-        {
-            m_resourceStatsObject->NotAutonomousSoDisconnect();
-            if (IsNetEntityRoleAuthority())
-                m_resourceStatsObject->m_isServer = true;
-            m_autonomousNotDetermined = false;
         }
 
         NetworkResourceStatsControllerNotificationBus::Broadcast(
