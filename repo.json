@@ -1,0 +1,11 @@
+{
+    "repo_name":"ResourceStats",
+    "origin":"Porcupine Factory",
+    "repo_uri": "https://gitlab.com/porcupine-factory/ResourceStats.git",
+    "summary": "The Resource Stats Gem provides various resources, stats, and metrics for your game's characters.",
+    "additional_info": "Provides health, mana, stamina, strength, and more.",
+    "last_updated": "09/27/2026 08:00pm",
+    "gems": [
+        "https://gitlab.com/porcupine-factory/ResourceStats/-/raw/main"
+    ]
+}

@@ -2,10 +2,10 @@
     "gem_name": "ResourceStats",
     "version": "1.0.0",
     "display_name": "Resource Stats",
-    "license": "TBD",
-    "license_url": "https://gitlab.com/porcupine-factory/ResourceStats",
+    "license": "MIT",
+    "license_url": "https://gitlab.com/porcupine-factory/ResourceStats/blob/main/LICENSE.txt",
     "origin": "Porcupine Factory",
-    "origin_url": "https://gitlab.com/porcupine-factory/ResourceStats",
+    "origin_uri": "https://gitlab.com/porcupine-factory/ResourceStats.git",
     "type": "Code",
     "summary": "The Resource Stats Gem handles resources and statistics like health, stamina, defense, etc.",
     "canonical_tags": [
