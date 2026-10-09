@@ -63,11 +63,11 @@ namespace ResourceStats
     class ResourceStatsComponentNotifications : public AZ::ComponentBus
     {
     public:
-        virtual void OnNetworkResourceStatsTickStart(const float) = 0;
-        virtual void OnNetworkResourceStatsTickFinish(const float) = 0;
-        virtual void OnHealthCapped() = 0;
-        virtual void OnHealthReachedZero() = 0;
-        virtual void OnHealthResurrected() = 0;
+        virtual void OnNetworkResourceStatsTickStart(const float) {};
+        virtual void OnNetworkResourceStatsTickFinish(const float) {};
+        virtual void OnHealthCapped() {};
+        virtual void OnHealthReachedZero() {};
+        virtual void OnHealthResurrected() {};
     };
 
     using ResourceStatsComponentNotificationBus = AZ::EBus<ResourceStatsComponentNotifications>;
