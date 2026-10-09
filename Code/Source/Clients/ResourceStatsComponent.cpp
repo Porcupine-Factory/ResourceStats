@@ -376,11 +376,21 @@ namespace ResourceStats
     }
     void ResourceStatsComponent::SetHealth(const AZ::u32 health)
     {
+        const AZ::u32 prevHealth = m_health;
         m_health = health;
 #ifdef NETWORKRESOURCESTATS
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetHealth(m_health);
 #endif
+        if (m_health == m_maxHealth)
+            ResourceStatsComponentNotificationBus::Event(
+                GetEntityId(), &ResourceStatsComponentNotifications::OnHealthCapped);
+        else if (m_health == 0)
+            ResourceStatsComponentNotificationBus::Event(
+                GetEntityId(), &ResourceStatsComponentNotifications::OnHealthReachedZero);
+        else if (prevHealth == 0 && m_health > 0)
+            ResourceStatsComponentNotificationBus::Event(
+                GetEntityId(), &ResourceStatsComponentNotifications::OnHealthResurrected);
     }
     AZ::u32 ResourceStatsComponent::GetMaxHealth() const
     {
@@ -401,6 +411,7 @@ namespace ResourceStats
     }
     void ResourceStatsComponent::SetHealthDelta(const AZ::s64 healthDelta)
     {
+        const AZ::u32 prevHealth = m_health;
         if (healthDelta > 0 && healthDelta > AZStd::numeric_limits<AZ::u32>::max() - m_health)
             m_health = AZStd::numeric_limits<AZ::u32>::max();
         else
@@ -414,6 +425,15 @@ namespace ResourceStats
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetHealth(m_health);
 #endif
+        if (m_health == m_maxHealth)
+            ResourceStatsComponentNotificationBus::Event(
+                GetEntityId(), &ResourceStatsComponentNotifications::OnHealthCapped);
+        else if (m_health == 0)
+            ResourceStatsComponentNotificationBus::Event(
+                GetEntityId(), &ResourceStatsComponentNotifications::OnHealthReachedZero);
+        else if (prevHealth == 0 && m_health > 0)
+            ResourceStatsComponentNotificationBus::Event(
+                GetEntityId(), &ResourceStatsComponentNotifications::OnHealthResurrected);
     }
     AZ::u32 ResourceStatsComponent::GetMana() const
     {

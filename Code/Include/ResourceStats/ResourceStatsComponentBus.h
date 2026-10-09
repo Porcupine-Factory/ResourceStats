@@ -65,6 +65,9 @@ namespace ResourceStats
     public:
         virtual void OnNetworkResourceStatsTickStart(const float) = 0;
         virtual void OnNetworkResourceStatsTickFinish(const float) = 0;
+        virtual void OnHealthCapped() = 0;
+        virtual void OnHealthReachedZero() = 0;
+        virtual void OnHealthResurrected() = 0;
     };
 
     using ResourceStatsComponentNotificationBus = AZ::EBus<ResourceStatsComponentNotifications>;
@@ -79,7 +82,10 @@ namespace ResourceStats
             "{ac4001c0-d9a3-4df4-b393-60e190f5d0d8}",
             AZ::SystemAllocator,
             OnNetworkResourceStatsTickStart,
-            OnNetworkResourceStatsTickFinish);
+            OnNetworkResourceStatsTickFinish,
+            OnHealthCapped,
+            OnHealthReachedZero,
+            OnHealthResurrected);
 
         void OnNetworkResourceStatsTickStart(const float deltaTime) override
         {
@@ -88,6 +94,18 @@ namespace ResourceStats
         void OnNetworkResourceStatsTickFinish(const float deltaTime) override
         {
             Call(FN_OnNetworkResourceStatsTickFinish, deltaTime);
+        }
+        void OnHealthCapped() override
+        {
+            Call(FN_OnHealthCapped);
+        }
+        void OnHealthReachedZero() override
+        {
+            Call(FN_OnHealthReachedZero);
+        }
+        void OnHealthResurrected() override
+        {
+            Call(FN_OnHealthResurrected);
         }
     };
 } // namespace ResourceStats
