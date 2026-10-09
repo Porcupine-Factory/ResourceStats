@@ -382,10 +382,10 @@ namespace ResourceStats
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetHealth(m_health);
 #endif
-        if (m_health == m_maxHealth)
+        if (prevHealth != m_maxHealth && m_health == m_maxHealth)
             ResourceStatsComponentNotificationBus::Event(
                 GetEntityId(), &ResourceStatsComponentNotifications::OnHealthCapped);
-        else if (m_health == 0)
+        else if (prevHealth != 0 && m_health == 0)
             ResourceStatsComponentNotificationBus::Event(
                 GetEntityId(), &ResourceStatsComponentNotifications::OnHealthReachedZero);
         else if (prevHealth == 0 && m_health > 0)
@@ -425,10 +425,10 @@ namespace ResourceStats
         if (m_networkResourceStatsEnabled && m_networkResourceStatsControllerObject != nullptr)
             m_networkResourceStatsControllerObject->SetHealth(m_health);
 #endif
-        if (m_health == m_maxHealth)
+        if (prevHealth != m_maxHealth && m_health == m_maxHealth)
             ResourceStatsComponentNotificationBus::Event(
                 GetEntityId(), &ResourceStatsComponentNotifications::OnHealthCapped);
-        else if (m_health == 0)
+        else if (prevHealth != 0 && m_health == 0)
             ResourceStatsComponentNotificationBus::Event(
                 GetEntityId(), &ResourceStatsComponentNotifications::OnHealthReachedZero);
         else if (prevHealth == 0 && m_health > 0)

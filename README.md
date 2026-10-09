@@ -1,4 +1,4 @@
-# ResourceStats
+# Resource Stats
 The Resource Stats Gem provides various resources, stats, and metrics for your game's characters.
 
 O3DE ResourceStats Gem is licensed under [MIT](LICENSE.txt).
