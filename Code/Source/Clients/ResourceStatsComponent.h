@@ -133,6 +133,9 @@ namespace ResourceStats
         bool m_staminaInitialized = false;
 #endif
 
+        // Previous values tracked for notification events
+        AZ::u32 m_prevHealth = 100;
+
         // Networking related variables
         bool m_networkResourceStatsEnabled = false;
         bool m_isServer = false;
